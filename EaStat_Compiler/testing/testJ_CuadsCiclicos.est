@@ -1,0 +1,32 @@
+inicio
+ent eVar1;
+flot fVar1;
+flot fHistograma;
+car cVar1;
+car cVar2;
+
+principal{
+
+    leer(cVar2);
+
+    escrib("Escribe el valor de cVar2: ");
+    escrib(cVar2);
+
+    si(eVar1 < 5){
+        escrib("eVar1 es menor que 5");
+    };
+
+    eVar1 = 5;
+
+    si(eVar1 > 0 && 8 < 20){
+        eVar1 = eVar1 - 1;
+    } otro {
+        eVar1 = eVar1 + 5;
+    };
+
+    eVar1 =  8;
+    mientras(eVar1 > 0){
+        escrib("Hola");
+    };
+
+};

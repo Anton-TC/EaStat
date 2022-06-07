@@ -1,0 +1,17 @@
+inicio
+ent eVar1;
+ent eVar2;
+ent eVar3;
+
+ent llamadaVerdadera(ent eVarA, ent eVarB){
+    regresa(eVarA + eVarB);
+};
+
+principal{
+    eVar1 = 4;
+    eVar2 = 5;
+    
+    eVar3 = llamadaVerdadera(eVar1, eVar2);
+
+    escrib(eVar3);
+};

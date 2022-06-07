@@ -1,0 +1,6 @@
+inicio
+ent eVar1;
+
+principal{
+    llamadaFalsa(eVar1);
+};

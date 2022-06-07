@@ -1,0 +1,28 @@
+inicio
+ent input;
+ent factorial;
+ent controlVar;
+
+principal{
+    escrib("Escribe el factorial que deseas obtener");
+    leer(input);
+
+    factorial = 1;
+    
+    si(input < 0){
+        escrib("¿Factorial de un negativo? Tas loco...");
+    } otro {
+        si(input == 0){
+            escrib("Ps 0, ya ni pa' qué te molestas");
+        } otro {
+            controlVar = 1;
+            mientras(controlVar < input + 1){
+                factorial = factorial * controlVar;
+                controlVar = controlVar + 1;
+            };
+
+            escrib("El resultado es:");
+            escrib(factorial);
+        };
+    };
+};

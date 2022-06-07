@@ -1,0 +1,19 @@
+inicio
+ent input;
+ent resultado;
+
+ent factorial(ent x){
+    si(x == 1){
+        regresa(1);
+    } otro {
+        regresa(x * factorial(x - 1));
+    };
+};
+
+principal{
+    escrib("Escribe el factorial que deseas obtener:");
+    leer(input);
+
+    resultado = factorial(input);
+    escrib(resultado);
+};

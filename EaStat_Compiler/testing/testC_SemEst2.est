@@ -1,0 +1,55 @@
+inicio
+ent eVar1;
+ent eVar2[5][5];
+flot fVar1;
+flot fHistograma;
+flot fValores[20];
+flot fGrafCaj[5];
+car cVar1;
+car cVar2;
+
+vacio funcionPrueba(ent eVar, flot fVar, car cVar){
+    eVar1 = eVar + 5;
+    fVar1 = fVar * 6.0 + 8.1;
+    cVar1 = 'a';
+};
+
+vacio funcionPrueba2(ent eVar, flot fVar, car cVar){
+    eVar1 = eVar + 5;
+    fVar1 = fVar * 6.0 + 8.1;
+    cVar1 = 'a';
+};
+
+vacio funcionPrueba3(){
+
+};
+
+principal{
+    eVar1 = 5 + 6 - 7;
+    fVar1 = 5 * 6 / 7 + (5 * 9);
+    cVar1 = 'c';
+    fVar1 = eVar1 * 96.5;
+
+    eVar2[1][1] = reglamulti(5, 5, 5);
+
+    funcionPrueba(8, 8.4, 'c');
+
+    leer(cVar2);
+
+    escrib("Escribe el valor de cVar2: ");
+    escrib(cVar2);
+
+    si(eVar1 > 0 && 8 < 20){
+        eVar1 = eVar1 - 1;
+    } otro {
+        evar = eVar + 5;
+    };
+
+    mientras(eVar > 0){
+        escrib("Holis");
+    };
+
+    fHistograma = mediana(fValores);
+
+    fGrafCaj = media(fValores);
+};

@@ -1,0 +1,19 @@
+inicio
+flot z;
+ent a;
+ent b;
+ent c;
+ent d;
+ent e;
+ent f;
+ent h;
+ent i;
+ent j;
+
+principal{
+    z = a * (b + c * d - e * f / h + i) / (a + (b + c) / d);
+    escrib(a);
+    escrib("Holis");
+    escrib(5 * 8.96);
+    leer(z);
+};

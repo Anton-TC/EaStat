@@ -1,0 +1,13 @@
+inicio
+ent i;
+flot j;
+
+principal{
+    escrib("Lee:");
+    leer(i);
+    leer(j);
+
+    escrib("Escribe:");
+    escrib(i);
+    escrib(j);
+};

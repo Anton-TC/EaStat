@@ -1,0 +1,6 @@
+inicio
+ent eVar1;
+
+principal{
+    eVar1 = eVar2;
+};

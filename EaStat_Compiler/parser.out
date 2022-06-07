@@ -1,0 +1,342 @@
+Created by PLY version 3.11 (http://www.dabeaz.com/ply)
+
+Grammar
+
+Rule 0     S' -> programa
+Rule 1     programa -> inicio programa2 principal cuerpo PUCOMA
+Rule 2     programa2 -> dec_vars programa2
+Rule 3     programa2 -> programa3
+Rule 4     programa3 -> func programa3
+Rule 5     programa3 -> fin
+Rule 6     inicio -> INICIO
+Rule 7     principal -> PRINCIPAL
+Rule 8     variable -> ID variable2
+Rule 9     variable2 -> BRAIZQ expr BRADER variable3
+Rule 10    variable2 -> variable3
+Rule 11    variable3 -> BRAIZQ C_ENT BRADER
+Rule 12    variable3 -> fin
+Rule 13    dec_vars -> tipo ID dec_vars2 PUCOMA
+Rule 14    dec_vars2 -> BRAIZQ expresion_a BRADER dec_vars3
+Rule 15    dec_vars2 -> dec_vars3
+Rule 16    dec_vars3 -> BRAIZQ expresion_a BRADER
+Rule 17    dec_vars3 -> fin
+Rule 18    func -> tipoFunc PAREIZQ params PAREDER cuerpoFunc PUCOMA
+Rule 19    tipoFunc -> tipo ID
+Rule 20    tipoFunc -> VACIO ID
+Rule 21    cuerpoFunc -> LLAIZQ cuerpoFunc2 LLADER
+Rule 22    cuerpoFunc2 -> dec_vars cuerpoFunc2
+Rule 23    cuerpoFunc2 -> cuerpoFunc3
+Rule 24    cuerpoFunc3 -> estatuto cuerpoFunc3
+Rule 25    cuerpoFunc3 -> fin
+Rule 26    cuerpo -> LLAIZQ cuerpo2 LLADER
+Rule 27    cuerpo2 -> estatuto cuerpo2
+Rule 28    cuerpo2 -> fin
+Rule 29    tipo -> ENT
+Rule 30    tipo -> FLOT
+Rule 31    tipo -> CAR
+Rule 32    params -> params2
+Rule 33    params -> fin
+Rule 34    params2 -> parametro params3
+Rule 35    params3 -> COMA params2
+Rule 36    params3 -> fin
+Rule 37    parametro -> tipo ID
+Rule 38    estatuto -> estatuto2 PUCOMA
+Rule 39    estatuto2 -> asignacion
+Rule 40    estatuto2 -> regresa
+Rule 41    estatuto2 -> llamadaEstat
+Rule 42    estatuto2 -> lectura
+Rule 43    estatuto2 -> escribir
+Rule 44    estatuto2 -> condicion
+Rule 45    estatuto2 -> mientras
+Rule 46    estatuto2 -> func_esp_s
+Rule 47    estatuto2 -> func_esp_c
+Rule 48    asignacion -> variable igual expresion_a
+Rule 49    igual -> IGUAL
+Rule 50    regresa -> registraRegresa PAREIZQ expresion_a PAREDER
+Rule 51    registraRegresa -> REGRESA
+Rule 52    lectura -> leer PAREIZQ variable PAREDER
+Rule 53    leer -> LEER
+Rule 54    escribir -> escrib PAREIZQ escribir2 PAREDER
+Rule 55    escribir2 -> expresion_a
+Rule 56    escribir2 -> cadena
+Rule 57    escrib -> ESCRIB
+Rule 58    condicion -> SI PAREIZQ expresion_a pareDerIfWhile cuerpo condicion2
+Rule 59    condicion2 -> condicion3
+Rule 60    condicion2 -> condicion4
+Rule 61    condicion3 -> otro cuerpo condicion4
+Rule 62    condicion4 -> fin
+Rule 63    pareDerIfWhile -> PAREDER
+Rule 64    otro -> OTRO
+Rule 65    mientras -> mientrasTkn PAREIZQ expresion_a pareDerIfWhile cuerpo
+Rule 66    mientrasTkn -> MIENTRAS
+Rule 67    llamada -> idFunc pareIzqLlamada llamada2 pareDerLlamada
+Rule 68    llamada2 -> llamada3
+Rule 69    llamada2 -> fin
+Rule 70    llamada3 -> paramExpr llamada4
+Rule 71    llamada4 -> comaLlamada paramExpr llamada4
+Rule 72    llamada4 -> fin
+Rule 73    llamadaEstat -> llamada
+Rule 74    idFunc -> ID
+Rule 75    pareIzqLlamada -> PAREIZQ
+Rule 76    paramExpr -> expresion_a
+Rule 77    comaLlamada -> COMA
+Rule 78    pareDerLlamada -> PAREDER
+Rule 79    func_esp_s -> medida_posicion
+Rule 80    func_esp_s -> medida_variabilidad
+Rule 81    func_esp_s -> puntos_muestrales
+Rule 82    func_esp_s -> distribuciones
+Rule 83    medida_posicion -> media
+Rule 84    medida_posicion -> mediana
+Rule 85    medida_posicion -> moda
+Rule 86    media -> MEDIA PAREIZQ ID PAREDER
+Rule 87    mediana -> MEDIANA PAREIZQ ID PAREDER
+Rule 88    moda -> MODA PAREIZQ ID PAREDER
+Rule 89    medida_variabilidad -> varianza
+Rule 90    medida_variabilidad -> desestandar
+Rule 91    medida_variabilidad -> rango
+Rule 92    varianza -> VARIANZA PAREIZQ ID PAREDER
+Rule 93    desestandar -> DESESTANDAR PAREIZQ ID PAREDER
+Rule 94    rango -> RANGO PAREIZQ ID PAREDER
+Rule 95    puntos_muestrales -> reglamulti
+Rule 96    puntos_muestrales -> combins
+Rule 97    puntos_muestrales -> permuts
+Rule 98    reglamulti -> REGLAMULTI PAREIZQ expresion_a reglamulti2 PAREDER
+Rule 99    reglamulti2 -> COMA expresion_a reglamulti2
+Rule 100   reglamulti2 -> fin
+Rule 101   combins -> COMBINS PAREIZQ expresion_a COMA expresion_a PAREDER
+Rule 102   permuts -> PERMUTS PAREIZQ expresion_a COMA expresion_a PAREDER
+Rule 103   distribuciones -> dstbinom
+Rule 104   distribuciones -> dstbinomneg
+Rule 105   distribuciones -> dstgeom
+Rule 106   distribuciones -> dsthipgeom
+Rule 107   distribuciones -> dstpoisson
+Rule 108   dstbinom -> DSTBINOM PAREIZQ dstbinom2 PAREDER
+Rule 109   dstbinom2 -> expresion_a COMA expresion_a COMA expresion_a COMA expresion_a
+Rule 110   dstbinomneg -> DSTBINOMNEG PAREIZQ dstbinomneg2 PAREDER
+Rule 111   dstbinomneg2 -> expresion_a COMA expresion_a COMA expresion_a COMA expresion_a
+Rule 112   dstgeom -> DSTGEOM PAREIZQ dstgeom2 PAREDER
+Rule 113   dstgeom2 -> expresion_a COMA expresion_a COMA expresion_a
+Rule 114   dsthipgeom -> DSTHIPGEOM PAREIZQ dsthipgeom2 PAREDER
+Rule 115   dsthipgeom2 -> expresion_a COMA expresion_a COMA expresion_a COMA expresion_a COMA expresion_a
+Rule 116   dstpoisson -> DSTPOISSON PAREIZQ dstpoisson2 PAREDER
+Rule 117   dstpoisson2 -> expresion_a COMA expresion_a COMA expresion_a
+Rule 118   func_esp_c -> valores_graficos
+Rule 119   valores_graficos -> histograma
+Rule 120   valores_graficos -> grafcaja
+Rule 121   histograma -> HISTOGRAMA PAREIZQ ID PAREDER
+Rule 122   grafcaja -> GRAFCAJA PAREIZQ ID PAREDER
+Rule 123   expresion_a -> expresion_b revisaO expresion_a2
+Rule 124   expresion_a2 -> o expresion_a
+Rule 125   expresion_a2 -> fin
+Rule 126   revisaO -> fin
+Rule 127   o -> O
+Rule 128   expresion_b -> expresion_c revisaY expresion_b2
+Rule 129   expresion_b2 -> y expresion_b
+Rule 130   expresion_b2 -> fin
+Rule 131   revisaY -> fin
+Rule 132   y -> Y
+Rule 133   expresion_c -> expresion_d revisaMaMeIgDif
+Rule 134   expresion_c -> expresion_d revisaMaMeIgDif compara expresion_d revisaMaMeIgDif
+Rule 135   revisaMaMeIgDif -> fin
+Rule 136   compara -> MAYOR
+Rule 137   compara -> MENOR
+Rule 138   compara -> IGUALQ
+Rule 139   compara -> DIFF
+Rule 140   expresion_d -> expresion_e revisaMasMen expresion_d2
+Rule 141   expresion_d2 -> masmenos expresion_d
+Rule 142   expresion_d2 -> fin
+Rule 143   revisaMasMen -> fin
+Rule 144   masmenos -> MAS
+Rule 145   masmenos -> MENOS
+Rule 146   expresion_e -> expresion_f revisaPorDiv expresion_e2
+Rule 147   expresion_e2 -> pordiv expresion_e
+Rule 148   expresion_e2 -> fin
+Rule 149   revisaPorDiv -> fin
+Rule 150   pordiv -> POR
+Rule 151   pordiv -> DIV
+Rule 152   expresion_f -> pareIzqEx expresion_a pareDerEx
+Rule 153   expresion_f -> c_ent
+Rule 154   expresion_f -> c_flot
+Rule 155   expresion_f -> c_car
+Rule 156   expresion_f -> cadena
+Rule 157   expresion_f -> variable
+Rule 158   expresion_f -> llamadaExp
+Rule 159   expresion_f -> func_esp_s
+Rule 160   pareIzqEx -> PAREIZQ
+Rule 161   pareDerEx -> PAREDER
+Rule 162   c_ent -> C_ENT
+Rule 163   c_flot -> C_FLOT
+Rule 164   c_car -> C_CAR
+Rule 165   cadena -> CADENA
+Rule 166   llamadaExp -> llamada
+Rule 167   fin -> <empty>
+
+Terminals, with rules where they appear
+
+BRADER               : 9 11 14 16
+BRAIZQ               : 9 11 14 16
+CADENA               : 165
+CAR                  : 31
+COMA                 : 35 77 99 101 102 109 109 109 111 111 111 113 113 115 115 115 115 117 117
+COMBINS              : 101
+C_CAR                : 164
+C_ENT                : 11 162
+C_FLOT               : 163
+DESESTANDAR          : 93
+DIFF                 : 139
+DIV                  : 151
+DSTBINOM             : 108
+DSTBINOMNEG          : 110
+DSTGEOM              : 112
+DSTHIPGEOM           : 114
+DSTPOISSON           : 116
+ENT                  : 29
+ESCRIB               : 57
+FLOT                 : 30
+GRAFCAJA             : 122
+HISTOGRAMA           : 121
+ID                   : 8 13 19 20 37 74 86 87 88 92 93 94 121 122
+IGUAL                : 49
+IGUALQ               : 138
+INICIO               : 6
+LEER                 : 53
+LLADER               : 21 26
+LLAIZQ               : 21 26
+MAS                  : 144
+MAYOR                : 136
+MEDIA                : 86
+MEDIANA              : 87
+MENOR                : 137
+MENOS                : 145
+MIENTRAS             : 66
+MODA                 : 88
+O                    : 127
+OTRO                 : 64
+PAREDER              : 18 50 52 54 63 78 86 87 88 92 93 94 98 101 102 108 110 112 114 116 121 122 161
+PAREIZQ              : 18 50 52 54 58 65 75 86 87 88 92 93 94 98 101 102 108 110 112 114 116 121 122 160
+PERMUTS              : 102
+POR                  : 150
+PRINCIPAL            : 7
+PUCOMA               : 1 13 18 38
+RANGO                : 94
+REGLAMULTI           : 98
+REGRESA              : 51
+SI                   : 58
+VACIO                : 20
+VARIANZA             : 92
+Y                    : 132
+error                : 
+
+Nonterminals, with rules where they appear
+
+asignacion           : 39
+c_car                : 155
+c_ent                : 153
+c_flot               : 154
+cadena               : 56 156
+comaLlamada          : 71
+combins              : 96
+compara              : 134
+condicion            : 44
+condicion2           : 58
+condicion3           : 59
+condicion4           : 60 61
+cuerpo               : 1 58 61 65
+cuerpo2              : 26 27
+cuerpoFunc           : 18
+cuerpoFunc2          : 21 22
+cuerpoFunc3          : 23 24
+dec_vars             : 2 22
+dec_vars2            : 13
+dec_vars3            : 14 15
+desestandar          : 90
+distribuciones       : 82
+dstbinom             : 103
+dstbinom2            : 108
+dstbinomneg          : 104
+dstbinomneg2         : 110
+dstgeom              : 105
+dstgeom2             : 112
+dsthipgeom           : 106
+dsthipgeom2          : 114
+dstpoisson           : 107
+dstpoisson2          : 116
+escrib               : 54
+escribir             : 43
+escribir2            : 54
+estatuto             : 24 27
+estatuto2            : 38
+expr                 : 9
+expresion_a          : 14 16 48 50 55 58 65 76 98 99 101 101 102 102 109 109 109 109 111 111 111 111 113 113 113 115 115 115 115 115 117 117 117 124 152
+expresion_a2         : 123
+expresion_b          : 123 129
+expresion_b2         : 128
+expresion_c          : 128
+expresion_d          : 133 134 134 141
+expresion_d2         : 140
+expresion_e          : 140 147
+expresion_e2         : 146
+expresion_f          : 146
+fin                  : 5 12 17 25 28 33 36 62 69 72 100 125 126 130 131 135 142 143 148 149
+func                 : 4
+func_esp_c           : 47
+func_esp_s           : 46 159
+grafcaja             : 120
+histograma           : 119
+idFunc               : 67
+igual                : 48
+inicio               : 1
+lectura              : 42
+leer                 : 52
+llamada              : 73 166
+llamada2             : 67
+llamada3             : 68
+llamada4             : 70 71
+llamadaEstat         : 41
+llamadaExp           : 158
+masmenos             : 141
+media                : 83
+mediana              : 84
+medida_posicion      : 79
+medida_variabilidad  : 80
+mientras             : 45
+mientrasTkn          : 65
+moda                 : 85
+o                    : 124
+otro                 : 61
+paramExpr            : 70 71
+parametro            : 34
+params               : 18
+params2              : 32 35
+params3              : 34
+pareDerEx            : 152
+pareDerIfWhile       : 58 65
+pareDerLlamada       : 67
+pareIzqEx            : 152
+pareIzqLlamada       : 67
+permuts              : 97
+pordiv               : 147
+principal            : 1
+programa             : 0
+programa2            : 1 2
+programa3            : 3 4
+puntos_muestrales    : 81
+rango                : 91
+registraRegresa      : 50
+reglamulti           : 95
+reglamulti2          : 98 99
+regresa              : 40
+revisaMaMeIgDif      : 133 134 134
+revisaMasMen         : 140
+revisaO              : 123
+revisaPorDiv         : 146
+revisaY              : 128
+tipo                 : 13 19 37
+tipoFunc             : 18
+valores_graficos     : 118
+variable             : 48 52 157
+variable2            : 8
+variable3            : 9 10
+varianza             : 89
+y                    : 129
+

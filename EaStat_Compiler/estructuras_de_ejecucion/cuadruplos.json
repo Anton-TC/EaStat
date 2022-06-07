@@ -1,0 +1,4 @@
+{
+	"1": {"indice": "1", "operacion": "gotoM", "opdo1": "", "opdo2": "", "destino": 2},
+	"2": {"indice": "2", "operacion": "END", "opdo1": "", "opdo2": "", "destino": ""}
+}
