@@ -1,3 +1,5 @@
 {
-	"Global": {"nombre": "Global", "tipo": "vacio", "returnCount": 0, "dirInicio": 2, "dirVar": -1, "firma": [], "numVars": [5, 0, 0], "numTemps": [4, 0, 0, 1, 0]}
+	"Global": {"nombre": "Global", "tipo": "vacio", "returnCount": 0, "dirInicio": 2, "dirVar": -1, "firma": [], "numVars": [2, 0, 0], "numTemps": [1, 0, 0, 0, 0]},
+	"z": {"nombre": "z", "tipo": "ent", "returnCount": 1, "dirInicio": 2, "dirVar": 1000, "firma": [["ent", 10000]], "numVars": [1, 0, 0], "numTemps": [1, 0, 0, 0, 0]},
+	"w": {"nombre": "w", "tipo": "ent", "returnCount": 1, "dirInicio": 5, "dirVar": 1001, "firma": [["ent", 10000], ["ent", 10001]], "numVars": [2, 0, 0], "numTemps": [2, 0, 0, 0, 0]}
 }

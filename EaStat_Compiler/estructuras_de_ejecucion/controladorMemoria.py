@@ -62,7 +62,7 @@ class controladorDeMem():
 
         # Revisar si voy a mandar una constante y mandarla al scope actual
         if dirOrigen >= 34000 and dirOrigen < 46000:
-            param = self.memoria[0].get(dir)
+            param = self.memoria[0].get(dirOrigen)
             scopeActual[0].set(dirDestino, param)
 
             self.memoria.append(scopeActual)
@@ -80,7 +80,7 @@ class controladorDeMem():
                 param = scopeAnterior[1].get(dirOrigen)
 
             # Mandar el dato a la dirección destino del scope actual
-            # (Simepre es a las variables, no se puede asignar un parámetro
+            # (Siempre es a las variables, no se puede asignar un parámetro
             # a una temporal)
             scopeActual[0].set(dirDestino, param)
 
