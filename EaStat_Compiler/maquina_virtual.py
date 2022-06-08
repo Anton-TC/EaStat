@@ -30,7 +30,7 @@ levantaError = ControladorErrores()
 #--------------------------------------------------------------------#
 def iniciarCompilador():
     # Inicializamos directorio de pruebas
-    dir = './testing/'
+    dir = './EaStat_Compiler/testing/'
 
     # Prguntamos al usuario cuál archivo desea ejecutar
     file = buscar(dir)
@@ -54,21 +54,21 @@ def iniciarCompilador():
 
     # Importación de código objeto
     print('Importando código objeto...\n')
-    with open('./estructuras_de_ejecucion/cuadruplos.json') as json_file:
+    with open('./EaStat_Compiler/estructuras_de_ejecucion/cuadruplos.json') as json_file:
         global misCuadruplos
         misCuadruplos = json.load(json_file)
     print('¡Cuádruplos importados!\n')
 
     # Importación del directorio de funciones
     print('importando estructuras de ejecución...\n')
-    with open('./estructuras_de_ejecucion/directorio.json') as json_file:
+    with open('./EaStat_Compiler/estructuras_de_ejecucion/directorio.json') as json_file:
         global directoriofs
         directoriofs = json.load(json_file)
     print('¡Directorio importado!\n')
 
     # Importación de tabla de constantes
     print('Importando constantes identificadas\n')
-    with open('./estructuras_de_ejecucion/constantes.json') as json_file:
+    with open('./EaStat_Compiler/estructuras_de_ejecucion/constantes.json') as json_file:
         misConstantes = json.load(json_file)
     print('¡Constantes importadas!\n')
 

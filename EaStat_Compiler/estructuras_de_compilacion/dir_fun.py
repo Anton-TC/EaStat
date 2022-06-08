@@ -258,7 +258,7 @@ class Directorio_Funcs():
             indx = indx + 1
         jsonString = jsonString + '\n}'
     
-        with open('./estructuras_de_ejecucion/directorio.json', 'w') as outfile:
+        with open('./EaStat_Compiler/estructuras_de_ejecucion/directorio.json', 'w') as outfile:
             outfile.write(jsonString)
 
     #--------------------------------------------------------------------#

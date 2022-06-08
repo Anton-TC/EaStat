@@ -202,7 +202,7 @@ def p_variable1(p):
 
 def p_variable2(p):
     '''
-    variable2   : BRAIZQ expr BRADER variable3
+    variable2   : BRAIZQ C_ENT BRADER variable3
                 | variable3
     '''
 
@@ -1749,8 +1749,8 @@ def buscar(dir):
     for base, dirs, files in os.walk(dir):
         archivos.append(files)
 
-    #print(archivos)
     archivos = archivos[0]
+    archivos.remove(archivos[0])
 
     print('Selecciona el test a ejecutar: ')
 
@@ -1773,7 +1773,8 @@ def buscar(dir):
 test = False
 if test:
     # Test directory
-    dir = './testing/'
+    dir = 'EaStat_Compiler/testing/'
+    fileName = '/testing/'
     file = buscar(dir)
     prueba = dir + file
     fp = codecs.open(prueba, "r", "utf-8")

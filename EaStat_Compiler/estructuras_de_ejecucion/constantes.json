@@ -1,2 +1,7 @@
 {
+	"0": {"valor": 0, "dir": 34000, "tipo": "ent"},
+	"1": {"valor": 1, "dir": 34001, "tipo": "ent"},
+	"Ingresa el número de términos:": {"valor": "Ingresa el n\u00famero de t\u00e9rminos:", "dir": 43000, "tipo": "cadena"},
+	"Serie de Fibonacci:": {"valor": "Serie de Fibonacci:", "dir": 43001, "tipo": "cadena"},
+	"3": {"valor": 3, "dir": 34002, "tipo": "ent"}
 }

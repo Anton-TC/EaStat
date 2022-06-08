@@ -86,7 +86,7 @@ class TablaConst():
             indx = indx + 1
         jsonString = jsonString + '\n}'
     
-        with open('./estructuras_de_ejecucion/constantes.json', 'w') as outfile:
+        with open('./EaStat_Compiler/estructuras_de_ejecucion/constantes.json', 'w') as outfile:
             outfile.write(jsonString)
 
     #--------------------------------------------------------------------#
