@@ -52,7 +52,9 @@ stkOperadores = []      # Operadores
 stkTipos = []           # Tipos
 stkSaltos = []          # Saltos
 stkLlamadas = []        # Llamadas de función
-stkScope = []    # función en la que se está trabajando
+stkScope = []           # función en la que se está trabajando
+stkArrs = []            # Variable candidata a arreglo
+stkDim = []             # Dimensiones
 
 # Tabla general de constantes 
 constantes= TablaConst({})
@@ -75,7 +77,7 @@ def p_programa1(p):
     directoriofs.get('Global').updateTemps(indicesTemp)
 
     #print('Imprimiendo directorio de funciones...\n')
-    #directoriofs.printDic()
+    directoriofs.printDic()
 
     # Eliminar todas las tablas de variables
     directoriofs.deleteTablasVars()
@@ -169,76 +171,416 @@ def p_principal(p):
 #--------------------------------------------------------------------#
 # p_variable1()
 #   Regla gramatical para detectar una variable.
-#   
-#   - Valida que la variable exista de forma local y luego global
-#   - Agrega la variable al stack de operandos y el tipo al stack de tipos
+#  
+#   - V8: Registrar dirección de inicio como constante
+#   - V9: Genera cuádruplo de suma de direcciones a pointer
 #--------------------------------------------------------------------#
 def p_variable1(p):
-    'variable : ID variable2'
-    
-    # Agregar variable al stack de operandos
-    
+    'variable : varID variable2'
+
     # Revisar en cual función me encuentro
     currFunct = stkScope.pop()
     stkScope.append(currFunct)
 
-    # Verificar si la variable existe en la tabla de la función
-    if not directoriofs.get(currFunct).tabla.exists(p[1]):
-        # En caso de no existir buscar en la tabla global
-        # Si no está, levantamos un error de variable no declarada
-        if not directoriofs.get('Global').tabla.exists(p[1]):
-            llamaError.varNoDefinida(p[1])
-        else:
-            myVar = directoriofs.get('Global').tabla.get(p[1])
-    else: # En caso de estar en la tabla de vars de la función...
-        # Obtener la variable de la tabla de variables de la función correspondiente
-        myVar = directoriofs.get(currFunct).tabla.get(p[1])
+    # Extraer la función actual del direcitorio
+    func = directoriofs.get(currFunct)
 
-    # Añadir variable al stack de operandos
-    stkOperandos.append(myVar.dir)
+    # Extraer la variable en la dimensión
+    var = func.tabla.get(stkArrs.pop())
 
-    # Añadir tipo de la variable al stack de operadores
-    stkTipos.append(myVar.tipo)
+    if var.isArray:
+        # Extraer el resultado de la formula
+        res = stkOperandos.pop()
+        resTipo = stkTipos.pop()
+
+        # Extraer la dimensión
+        dimension = stkDim.pop()
+
+        # Extraer la dirección de inicio de la variable
+        dirVirtual = var.dir
+
+        # Registrar la dirección como constante
+        appendConst('ent', dirVirtual)
+
+        # Extraer constante del stack de operandos
+        direccion = stkOperandos.pop()
+        dirTipo = stkTipos.pop()
+        
+        # Obteer la siguiente dirección pointer disponible
+        dirPntr = indicesTemp[4] 
+
+        # Generar cuádruplo de suma
+        generaCuadruplo('+', res, direccion, dirPntr)
+
+        # Actualizar índices
+        indicesTemp[4] = indicesTemp[4] + 1
+
+        # Insertar tipo y dir temporal pntr en el stack de operandos
+        stkOperandos.append(dirPntr)
+        stkTipos.append(dirTipo)
 
 def p_variable2(p):
     '''
-    variable2   : BRAIZQ C_ENT BRADER variable3
-                | variable3
+    variable2   : braIzqAccArr expresion_a braDerAccArr variable3
+                | braIzqAccArr expresion_a braDerAccArr
+                | fin
     '''
 
 def p_variable3(p):
     '''
-    variable3   : BRAIZQ C_ENT BRADER
-                | fin
+    variable3   : braIzqAccArr expresion_a braDerAccArr
     '''
+
+#--------------------------------------------------------------------#
+# p_varID()
+#   Regla gramatical para detectar una variable.
+#  
+#   - V1: Valida que la variable exista de forma local y luego global.
+#   - V2: Agrega la variable al stack de operandos y el tipo al
+#         stack de tipos.
+#   - V3 Validar que la variable tenga dimensiones y de ser así,
+#        intertar el ID en lugar de la dirección.
+#--------------------------------------------------------------------#
+def p_varID(p):
+    'varID : ID'
+    varID = p[1]
+        
+    # Revisar en cual función me encuentro
+    currFunct = stkScope.pop()
+    stkScope.append(currFunct)
+
+    # Extraer la función actual del direcitorio
+    func = directoriofs.get(currFunct)
+
+    # Verificar si la variable existe en la tabla de la función
+    if not func.tabla.exists(varID):
+       
+        # En caso de no existir buscar en la tabla global
+        # Si no está, levantamos un error de variable no declarada
+        globalFunc = directoriofs.get('Global')
+        if not globalFunc.tabla.exists(varID):
+            llamaError.varNoDefinida(varID)
+        else:
+            myVar = globalFunc.tabla.get(varID)
+    else: # En caso de estar en la tabla de vars de la función...
+       
+        # Obtener la variable de la tabla de variables de la función correspondiente
+        myVar = func.tabla.get(varID)
+        
+    # Añadir dirección de la variable al stack de operandos
+    stkOperandos.append(myVar.dir)
+
+    # Añadir nombre de variable al stack de arreglos por si la var no está registrada como arreglo
+    stkArrs.append(varID)
+    
+    # Añadir tipo de la variable al stack de operadores
+    stkTipos.append(myVar.tipo)
+
+    # En caso de que la variable sea arreglo
+    if myVar.isArray:
+        DIM = 1
+        Dimension = [myVar, DIM]
+        stkDim.append(Dimension)
+        stkOperadores.append('_FF')
+        stkOperandos.pop()
+        stkTipos.pop()
+
+#--------------------------------------------------------------------#
+# p_braIzqAccArr()
+#   Regla gramatical para detectar un '[' de un acceso a un arreglo.
+#  
+#   - V4: Valida que la variable sea un arreglo.
+#--------------------------------------------------------------------#
+def p_braIzqAccArr(p):
+    'braIzqAccArr : BRAIZQ'
+
+    # Extraer nombre del supuesto arreglo
+    arrID = stkArrs.pop()
+    stkArrs.append(arrID)
+        
+    # Revisar en cual función me encuentro
+    currFunct = stkScope.pop()
+    stkScope.append(currFunct)
+
+    # Extraer la función actual del direcitorio
+    func = directoriofs.get(currFunct)
+    
+    # Extraer variable
+    myVar = func.tabla.get(arrID)
+
+    # Validar que la variable es arreglo
+    if not myVar.isArray:
+        llamaError.indexacionAVarNoArreglo(arrID)
+
+#--------------------------------------------------------------------#
+# p_braDerAccArr()
+#   Regla gramatical para detectar un ']' de un acceso a un arreglo.
+#  
+#   - V5: Generar cuadruplo 'verif'
+#   - V6: Generar cuadruplo de multiplicación por M
+#   - V7: Generar cuadruplo de la suma de las dos dimensiones
+#--------------------------------------------------------------------#
+def p_braDerAccArr(p):
+    'braDerAccArr : BRADER'
+
+    # Extraer resultado de la expresión
+    resultado2 = stkOperandos.pop()
+    tipoRes2 = stkTipos.pop()
+
+    # Extarer dimensión
+    dimension = stkDim.pop()
+
+    # Extraer la variable y la DIM del stack de dimensiones
+    arrVar = dimension[0]
+    dimNum = dimension[1]
+
+    # Extraer el límite superior y convertirlo a constante
+    limSup = arrVar.dimensiones[dimNum - 1][0]
+    
+    # Registrar la dirección como constante
+    appendConst('ent', limSup)
+
+    # Extraer constante del stack de operandos
+    dirLimSup = stkOperandos.pop()
+    dirTipo = stkTipos.pop()
+
+    # Extraer la M
+    m = arrVar.dimensiones[dimNum - 1][1]
+
+    # Generar cuadruplo 'verif'
+    generaCuadruplo('verif', resultado2, '', dirLimSup)
+
+    # Validar si hay más dimensiones
+    if dimNum == 1:
+        global indicesTemp
+
+        # Determinar el índice a utilizar indicesTemp[ENT, FLOT, CAR, BOOL, PNTR]
+        if tipoRes2 == 'ent':
+            indice = 0
+        elif tipoRes2 == 'flot':
+            indice = 1
+        elif tipoRes2 == 'car':
+            indice = 2
+        elif tipoRes2 == 'bool':
+            indice = 3
+        else:
+            indice = 4
+
+        # Asignar temporal de resultado
+        dirTemp = indicesTemp[indice] 
+
+        # Registrar m como constante
+        appendConst('ent', m)
+
+        # Extraer constante del stack de operandos
+        direccionM = stkOperandos.pop()
+        dirTipo = stkTipos.pop()
+
+        # Generar cuadruplo multiplicacióne '*' 
+        generaCuadruplo('*', resultado2, direccionM, dirTemp)
+
+        # Actualizar índices
+        indicesTemp[indice] = indicesTemp[indice] + 1
+
+        # Quitar Fondo Falso
+        stkOperadores.pop()
+
+        # Insertar resultado en el stack de operandos y tipos
+        stkOperandos.append(dirTemp)
+        stkTipos.append(tipoRes2)
+    
+    if dimNum == 2:
+        # Extraer resultado de la expresión
+        resultado1 = stkOperandos.pop()
+        tipoRes1 = stkTipos.pop()
+
+        # Determinar el índice a utilizar indicesTemp[ENT, FLOT, CAR, BOOL, PNTR]
+        if tipoRes1 == 'ent':
+            indice = 0
+        elif tipoRes1 == 'flot':
+            indice = 1
+        elif tipoRes1 == 'car':
+            indice = 2
+        elif tipoRes1 == 'bool':
+            indice = 3
+        else:
+            indice = 4
+
+        # Asignar temporal de resultado
+        dirTemp = indicesTemp[indice] 
+
+        generaCuadruplo('+', resultado1, resultado2, dirTemp)
+
+        # Actualizar índices
+        indicesTemp[indice] = indicesTemp[indice] + 1
+
+        # Insertar resultado en el stack de operandos y tipos
+        stkOperandos.append(dirTemp)
+        stkTipos.append(tipoRes1)
+    
+    dimension[1] = dimension[1] + 1
+
+    # Regresar nodo dimension al stack de dimensiones
+    stkDim.append(dimension)
 
 # DECLARACION DE VARIABLES
 #--------------------------------------------------------------------#
 # p_dec_vars1()
 #   Regla gramatical para detectar una declaración de variable.
 #   
-#   - Manda a registrar la variable con el tipo y el id a tabla de
-#     variables de la función corresondiente.
-# Resultado:
-#   - La variable queda registrada en su respectiva función.
+#   - DV7: Retirar nombre de variable del stack de potenciales arreglos.
+#   - DV8: Verificar si la variable es arreglo.
+#   - DV9: Calcular las M's de las dimensiones y actualizar índices
+#          glob/loc.
 #--------------------------------------------------------------------#
 def p_dec_vars1(p):
-    'dec_vars : tipo ID dec_vars2 PUCOMA'
-    tipo = p[1]
-    id = p[2]
-    addToVarsTab(tipo, id)
+	
+    'dec_vars : registroVar dec_vars2 PUCOMA'
+    global R
+
+    # Retirar nombre de variable del stack
+    arrNombre = stkArrs.pop()
+    
+    # Extraer scope actual
+    scope = stkScope.pop()
+    stkScope.append(scope)
+    
+    # Extraer la función
+    func = directoriofs.get(scope)
+    
+    # Verificar que la variable tiene dimensiones
+    if func.tabla.isArray(arrNombre):
+        
+        # Calcular las M's
+        func.tabla.calculaMs(arrNombre, R)
+        tipo = p[1]
+        
+        # Actualizar índices
+        if scope == 'Global':
+            if tipo == 'ent':
+                indicesGlob[0] = indicesGlob[0] + R - 1
+            elif tipo == 'flot':
+                indicesGlob[1] = indicesGlob[1] + R - 1
+            else:
+                indicesGlob[2] = indicesGlob[2] + R - 1
+        else:
+            if tipo == 'ent':
+                indicesLoc[0] = indicesLoc[0] + R - 1
+            elif tipo == 'flot':
+                indicesLoc[1] = indicesLoc[1] + R - 1
+            else:
+                indicesLoc[2] = indicesLoc[2] + R - 1
 
 def p_dec_vars2(p):
     '''
-    dec_vars2   : BRAIZQ expresion_a BRADER dec_vars3
-                | dec_vars3
+    dec_vars2   : braIzqDecArr mandaConst braDerDecArr dec_vars3
+                | braIzqDecArr mandaConst braDerDecArr
+                | fin
     '''
 
 def p_dec_vars3(p):
     '''
-    dec_vars3   : BRAIZQ expresion_a BRADER
-                | fin
+    dec_vars3   : BRAIZQ mandaConst braDerDecArr
     '''
+
+#--------------------------------------------------------------------#
+# p_registroVar()
+#   Regla gramatical para el tipo y el ID de una declaración de variable
+#  
+#   - DV1: Manda a registrar la variable con el tipo y el id a tabla de
+#     variables de la función corresondiente.
+#   - DV2: Inserta nombre de variable al stack de declaración de arreglos.
+# Resultado:
+#   - La variable queda registrada en su respectiva función.
+#--------------------------------------------------------------------#
+def p_registroVar(p):
+    'registroVar : tipo ID'
+    
+    # Registro
+    tipo = p[1]
+    id = p[2]
+    addToVarsTab(tipo, id)
+    
+    # Insertar nombre de variable al stack de declaración de arreglos
+    stkArrs.append(id)
+    
+    # Mandar el tipo de vari
+    p[0] = p[1]
+#--------------------------------------------------------------------#
+# p_braIzqDecArr()
+#   Regla gramatical para detectar el token BRAIZQ en la declaración
+#   de variables.
+#
+#   - DV3: Inicializar R (se usa para calcular las M's).
+#   - DV4: Marcar variable como arreglo.
+#--------------------------------------------------------------------#
+def p_braIzqDecArr(p):
+    'braIzqDecArr : BRAIZQ'
+    
+    # Inicializar R
+    global R
+    R = 1
+    
+    # Extraer scope actual
+    scope = stkScope.pop()
+    stkScope.append(scope)
+    
+    # Extraer el nombre de la variable
+    arrNombre = stkArrs.pop()
+    stkArrs.append(arrNombre)
+    
+    # Extraer la función
+    func = directoriofs.get(scope)
+    
+    # Indicar que es de tipo arreglo
+    func.tabla.setAsArray(arrNombre)
+#--------------------------------------------------------------------#
+# p_mandaConst()
+#   Regla gramatical para detectar una constante ENT en la diensión
+#   1 del arreglo.
+#
+#   Solo manda el valor de la constante a la regla braDerDecArr
+#--------------------------------------------------------------------#
+def p_mandaConst(p):
+    'mandaConst : C_ENT'
+    
+    # Mandar constante
+    stkOperandos.append(p[1])
+#--------------------------------------------------------------------#
+# p_braDerDecArr()
+#   Regla gramatical para detectar el token BRADER en la declaración
+#   de variables.
+#
+#   - DV5: Generar nodo y re/calcular R.
+#   - DV6: Insertar nodo en la variable del scope correspondiente.
+#--------------------------------------------------------------------#
+def p_braDerDecArr(p):
+    'braDerDecArr : BRADER'
+    
+    # Extraer el nombre de la variable
+    arrNombre = stkArrs.pop()
+    stkArrs.append(arrNombre)
+    
+    # Extraer el tamaño de la dimensión
+    tamDimension = stkOperandos.pop()
+    
+    # Generar nodo
+    nodo = []
+    nodo.append(tamDimension)
+    
+    # Recalculo R
+    global R
+    R = R * (tamDimension + 1)
+    
+    # Extraer scope actual
+    scope = stkScope.pop()
+    stkScope.append(scope)
+    
+    # Extraer la función
+    func = directoriofs.get(scope)
+    
+    # Insertar nodo en el stack de la variable
+    func.tabla.addNodeToVar(arrNombre, nodo)
 
 # FUNCION
 #--------------------------------------------------------------------#
@@ -1443,28 +1785,6 @@ def p_c_car(p):
 def p_cadena(p):
     'cadena : CADENA'
     appendConst('cadena', p[1])
-
-#--------------------------------------------------------------------#
-# p_llamadaExp()
-#   Regla gramatical para detectar una llamada dentro de una expresión.
-#   
-#   - Verifica si la función debe retornar un valor.
-# Resultado:
-#   - Se despliega un error si la función no regresa un valor.
-#--------------------------------------------------------------------#
-def p_llamadaExp(p):
-    'llamadaExp : llamada'
-    # Obtener el nombre de la función
-    nombreFunc = p[1]
-
-    # Extraer la función
-    func = directoriofs.get(nombreFunc)
-    
-    # Extraer el tipo de la función
-    tipoFunc = func.tipo
-
-    if tipoFunc == 'vacio':
-        llamaError.LlamadaFuncSinRetornoEnExpr(nombreFunc, tipoFunc);
 
 # VACIO
 def p_fin(p):

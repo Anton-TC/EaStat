@@ -1,0 +1,14 @@
+inicio
+ent ArrA[5][5];
+ent ArrB[9];
+ent i;
+ent p;
+ent j;
+
+principal{
+    ArrB[8] = 59;
+    escrib(ArrB[8]);
+    
+    ArrA[5][2 + 1] = ArrB[8] + 1;
+    escrib(ArrA[5][3]);
+};

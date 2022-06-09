@@ -8,7 +8,10 @@ class Variable():
         self.tipo = tipo
         self.nombre = nombre
         self.dir = dir
-
+        self.tam = 1
+        self.isArray = False
+        self.dimensiones = []
+        
     #--------------------------------------------------------------------#
     # printVar()
     #   Método para imprimir la variable.
@@ -17,9 +20,12 @@ class Variable():
     #   amigable.
     #--------------------------------------------------------------------#
     def printVar(self):
-        print(  '\tVariable: '  + self.nombre +
-                ', Tipo: '      + self.tipo +
-                ', Dir: '       + str(self.dir) + '\n')
+        print(  '\tVariable: '  , self.nombre,
+                ', Tipo: '      , self.tipo,
+                ', Dir: '       , self.dir, 
+                ', Tam: '       , self.tam,
+                ', ¿Arr?: '     , self.isArray,
+                ', Dims: '      , self.dimensiones, '\n')
 
 class TablaVars():
     def __init__(self, variables = {}):
@@ -82,6 +88,52 @@ class TablaVars():
             llamaError.variableNoDefinida(variable.nombre)
 
         self.variables[variable.nombre] = variable
+
+    #--------------------------------------------------------------------#
+        # addNodeToVar()
+    #   Método que agrega un nuevo nodo a la estructura de un arreglo
+    # Parámetros:
+    #   nombreVar: Nombre del arreglo.
+    #   nodo: Nodo para el arreglo.
+    # Resultado:
+    #   Arreglo actualizado.
+    #--------------------------------------------------------------------#
+    def addNodeToVar(self, nombreVar, nodo):
+        self.get(nombreVar).dimensiones.append(nodo)
+    #--------------------------------------------------------------------#
+    # setAsArray()
+    #   Método para indicar que una variable es arreglo
+    #--------------------------------------------------------------------#
+    def setAsArray(self, nombreVar):
+        var = self.get(nombreVar)
+        var.isArray = True
+    #--------------------------------------------------------------------#
+    # isArray()
+    #   Método para verificar si una variable es arreglo
+    #--------------------------------------------------------------------#
+    def isArray(self, nombreVar):
+        return self.get(nombreVar).isArray
+    
+    #--------------------------------------------------------------------#
+    # calculaMs()
+    #   Método para calcular las M´s de los arreglos.
+    #--------------------------------------------------------------------#
+    def calculaMs(self, arrNombre, R):
+        # Extraer la variable a calcularle las Ms
+        var = self.get(arrNombre)
+        
+        # Actualizar el tamaño total
+        var.tam = R
+        # Extraer la pila/arreglo de nodos
+        nodos = var.dimensiones
+        # Calcular Ms
+        for nodo in nodos:
+            m = R / (nodo[0] + 1)
+            R = m
+            
+            # Si la M es 1, estoy en el nodo final
+            nodo.append(int(m))
+
 
     #--------------------------------------------------------------------#
     # printT()

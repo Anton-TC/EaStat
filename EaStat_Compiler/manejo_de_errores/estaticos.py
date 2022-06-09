@@ -164,4 +164,10 @@ class ControladorErrores():
         print('¿Y la declaración de "', nombre, '" dónde anda? ¿en Acapulco?')
         print(self.separadorB)
         raise Exception("Variable no definida")
-    
+
+    # Levanta un error si se intenta indexar una variable normal
+    def indexacionAVarNoArreglo(self, nombreVar):
+        print(self.separadorA)
+        print("No recuerdo que me dijeras que ", nombreVar, " es un arreglo")
+        print(self.separadorB)
+        raise Exception('Intento de indexación a variable normal')    

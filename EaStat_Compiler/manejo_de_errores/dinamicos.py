@@ -10,3 +10,11 @@ class ControladorErrores():
         print(self.separadorB)
 
         raise Exception("Tipo de input incompatible")
+
+    def fueraDeLimites(self):
+        print(self.separadorA)
+        print('Oh que la... decide bien tus tamaños pues...')
+        print(self.separadorB)
+
+        raise Exception("Acceso a arreglo fuera de los límites")
+
