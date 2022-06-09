@@ -14,7 +14,7 @@ Rule 8     variable -> varID variable2
 Rule 9     variable2 -> braIzqAccArr expresion_a braDerAccArr variable3
 Rule 10    variable2 -> braIzqAccArr expresion_a braDerAccArr
 Rule 11    variable2 -> fin
-Rule 12    variable3 -> braIzqAccArr expresion_a BRADER
+Rule 12    variable3 -> braIzqAccArr expresion_a braDerAccArr
 Rule 13    varID -> ID
 Rule 14    braIzqAccArr -> BRAIZQ
 Rule 15    braDerAccArr -> BRADER
@@ -180,7 +180,7 @@ Rule 174   fin -> <empty>
 
 Terminals, with rules where they appear
 
-BRADER               : 12 15 24
+BRADER               : 15 24
 BRAIZQ               : 14 20 22
 CADENA               : 173
 CAR                  : 38
@@ -237,7 +237,7 @@ error                :
 Nonterminals, with rules where they appear
 
 asignacion           : 46
-braDerAccArr         : 9 10
+braDerAccArr         : 9 10 12
 braDerDecArr         : 17 18 20
 braIzqAccArr         : 9 10 12
 braIzqDecArr         : 17 18
@@ -5713,7 +5713,7 @@ state 228
 
     (9) variable2 -> braIzqAccArr expresion_a braDerAccArr . variable3
     (10) variable2 -> braIzqAccArr expresion_a braDerAccArr .
-    (12) variable3 -> . braIzqAccArr expresion_a BRADER
+    (12) variable3 -> . braIzqAccArr expresion_a braDerAccArr
     (14) braIzqAccArr -> . BRAIZQ
 
     IGUAL           reduce using rule 10 (variable2 -> braIzqAccArr expresion_a braDerAccArr .)
@@ -8191,7 +8191,7 @@ state 290
 
 state 291
 
-    (12) variable3 -> braIzqAccArr . expresion_a BRADER
+    (12) variable3 -> braIzqAccArr . expresion_a braDerAccArr
     (131) expresion_a -> . expresion_b revisaO expresion_a2
     (136) expresion_b -> . expresion_c revisaY expresion_b2
     (141) expresion_c -> . expresion_d revisaMaMeIgDif
@@ -8588,10 +8588,12 @@ state 313
 
 state 314
 
-    (12) variable3 -> braIzqAccArr expresion_a . BRADER
+    (12) variable3 -> braIzqAccArr expresion_a . braDerAccArr
+    (15) braDerAccArr -> . BRADER
 
-    BRADER          shift and go to state 326
+    BRADER          shift and go to state 229
 
+    braDerAccArr                   shift and go to state 326
 
 state 315
 
@@ -9273,23 +9275,23 @@ state 325
 
 state 326
 
-    (12) variable3 -> braIzqAccArr expresion_a BRADER .
+    (12) variable3 -> braIzqAccArr expresion_a braDerAccArr .
 
-    IGUAL           reduce using rule 12 (variable3 -> braIzqAccArr expresion_a BRADER .)
-    PAREDER         reduce using rule 12 (variable3 -> braIzqAccArr expresion_a BRADER .)
-    POR             reduce using rule 12 (variable3 -> braIzqAccArr expresion_a BRADER .)
-    DIV             reduce using rule 12 (variable3 -> braIzqAccArr expresion_a BRADER .)
-    MAS             reduce using rule 12 (variable3 -> braIzqAccArr expresion_a BRADER .)
-    MENOS           reduce using rule 12 (variable3 -> braIzqAccArr expresion_a BRADER .)
-    Y               reduce using rule 12 (variable3 -> braIzqAccArr expresion_a BRADER .)
-    O               reduce using rule 12 (variable3 -> braIzqAccArr expresion_a BRADER .)
-    BRADER          reduce using rule 12 (variable3 -> braIzqAccArr expresion_a BRADER .)
-    PUCOMA          reduce using rule 12 (variable3 -> braIzqAccArr expresion_a BRADER .)
-    COMA            reduce using rule 12 (variable3 -> braIzqAccArr expresion_a BRADER .)
-    MAYOR           reduce using rule 12 (variable3 -> braIzqAccArr expresion_a BRADER .)
-    MENOR           reduce using rule 12 (variable3 -> braIzqAccArr expresion_a BRADER .)
-    IGUALQ          reduce using rule 12 (variable3 -> braIzqAccArr expresion_a BRADER .)
-    DIFF            reduce using rule 12 (variable3 -> braIzqAccArr expresion_a BRADER .)
+    IGUAL           reduce using rule 12 (variable3 -> braIzqAccArr expresion_a braDerAccArr .)
+    PAREDER         reduce using rule 12 (variable3 -> braIzqAccArr expresion_a braDerAccArr .)
+    POR             reduce using rule 12 (variable3 -> braIzqAccArr expresion_a braDerAccArr .)
+    DIV             reduce using rule 12 (variable3 -> braIzqAccArr expresion_a braDerAccArr .)
+    MAS             reduce using rule 12 (variable3 -> braIzqAccArr expresion_a braDerAccArr .)
+    MENOS           reduce using rule 12 (variable3 -> braIzqAccArr expresion_a braDerAccArr .)
+    Y               reduce using rule 12 (variable3 -> braIzqAccArr expresion_a braDerAccArr .)
+    O               reduce using rule 12 (variable3 -> braIzqAccArr expresion_a braDerAccArr .)
+    BRADER          reduce using rule 12 (variable3 -> braIzqAccArr expresion_a braDerAccArr .)
+    PUCOMA          reduce using rule 12 (variable3 -> braIzqAccArr expresion_a braDerAccArr .)
+    COMA            reduce using rule 12 (variable3 -> braIzqAccArr expresion_a braDerAccArr .)
+    MAYOR           reduce using rule 12 (variable3 -> braIzqAccArr expresion_a braDerAccArr .)
+    MENOR           reduce using rule 12 (variable3 -> braIzqAccArr expresion_a braDerAccArr .)
+    IGUALQ          reduce using rule 12 (variable3 -> braIzqAccArr expresion_a braDerAccArr .)
+    DIFF            reduce using rule 12 (variable3 -> braIzqAccArr expresion_a braDerAccArr .)
 
 
 state 327

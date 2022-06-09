@@ -171,6 +171,9 @@ def p_principal(p):
 #--------------------------------------------------------------------#
 # p_variable1()
 #   Regla gramatical para detectar una variable.
+#  
+#   - V8: Registrar dirección de inicio como constante
+#   - V9: Genera cuádruplo de suma de direcciones a pointer
 #--------------------------------------------------------------------#
 def p_variable1(p):
     'variable : varID variable2'
@@ -193,17 +196,21 @@ def p_variable1(p):
         # Extraer la dimensión
         dimension = stkDim.pop()
 
-        # Extraer la variable en la dimensión
-        #var = dimension[0]
-
         # Extraer la dirección de inicio de la variable
         dirVirtual = var.dir
+
+        # Registrar la dirección como constante
+        appendConst('ent', dirVirtual)
+
+        # Extraer constante del stack de operandos
+        direccion = stkOperandos.pop()
+        dirTipo = stkTipos.pop()
         
         # Obteer la siguiente dirección pointer disponible
         dirPntr = indicesTemp[4] 
 
         # Generar cuádruplo de suma
-        generaCuadruplo('+', res, dirVirtual, dirPntr)
+        generaCuadruplo('s', res, direccion, dirPntr)
 
         # Actualizar índices
         indicesTemp[4] = indicesTemp[4] + 1
@@ -224,7 +231,7 @@ def p_variable2(p):
 
 def p_variable3(p):
     '''
-    variable3   : braIzqAccArr expresion_a BRADER
+    variable3   : braIzqAccArr expresion_a braDerAccArr
     '''
 
 #--------------------------------------------------------------------#
@@ -279,6 +286,12 @@ def p_varID(p):
         stkDim.append(Dimension)
         stkOperadores.append('_FF')
 
+#--------------------------------------------------------------------#
+# p_braIzqAccArr()
+#   Regla gramatical para detectar un '[' de un acceso a un arreglo.
+#  
+#   - V4: Valida que la variable sea un arreglo.
+#--------------------------------------------------------------------#
 def p_braIzqAccArr(p):
     'braIzqAccArr : BRAIZQ'
 
@@ -300,6 +313,14 @@ def p_braIzqAccArr(p):
     if not myVar.isArray:
         llamaError.indexacionAVarNoArreglo(arrID)
 
+#--------------------------------------------------------------------#
+# p_braDerAccArr()
+#   Regla gramatical para detectar un ']' de un acceso a un arreglo.
+#  
+#   - V5: Generar cuadruplo 'verif'
+#   - V6: Generar cuadruplo de multiplicación por M
+#   - V7: Generar cuadruplo de la suma de las dos dimensiones
+#--------------------------------------------------------------------#
 def p_braDerAccArr(p):
     'braDerAccArr : BRADER'
 
@@ -370,7 +391,7 @@ def p_braDerAccArr(p):
         # Asignar temporal de resultado
         dirTemp = indicesTemp[indice] 
 
-        generaCuadruplo('s', resultado1, resultado2, dirTemp)
+        generaCuadruplo('+', resultado1, resultado2, dirTemp)
 
         # Actualizar índices
         indicesTemp[indice] = indicesTemp[indice] + 1

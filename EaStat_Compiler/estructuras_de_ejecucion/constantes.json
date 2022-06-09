@@ -1,4 +1,4 @@
 {
-	"1": {"valor": 1, "dir": 34000, "tipo": "ent"},
-	"3": {"valor": 3, "dir": 34001, "tipo": "ent"}
+	"1000": {"valor": 1000, "dir": 34000, "tipo": "ent"},
+	"1": {"valor": 1, "dir": 34001, "tipo": "ent"}
 }
