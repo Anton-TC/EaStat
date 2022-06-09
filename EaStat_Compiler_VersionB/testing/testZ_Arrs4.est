@@ -1,0 +1,16 @@
+inicio
+ent Arr[9];
+
+vacio funcc(ent var){
+    escrib(var + 1);
+};
+
+vacio func(ent var){
+    escrib(var);
+    funcc(var);
+};
+
+principal{
+    Arr[5] = 5;
+    func(Arr[5]);
+};

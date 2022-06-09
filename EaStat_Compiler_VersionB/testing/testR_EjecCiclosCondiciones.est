@@ -1,0 +1,17 @@
+inicio
+ent i;
+ent j;
+
+principal{
+    i = 0;
+    j = 10;
+
+    mientras(i < 20){
+        si(i < j){
+            escrib("i es MENOR que j");
+        } otro {
+            escrib("i es MAYOR que j");
+        };
+        i = i + 1;
+    };
+};

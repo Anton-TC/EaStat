@@ -1,0 +1,12 @@
+inicio
+ent z(ent x){
+    regresa(x * 2);
+};
+
+ent w(ent x, ent y){
+    regresa(z(x + y));
+};
+
+principal{
+    escrib(w(2, 3));
+};

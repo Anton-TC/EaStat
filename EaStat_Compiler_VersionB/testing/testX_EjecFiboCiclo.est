@@ -1,0 +1,31 @@
+inicio
+ent t1;
+ent t2;
+ent i;
+ent n;
+ent t3;
+
+principal{
+    t1 = 0;
+    t2 = 1;
+    t3 = t1 + t2;
+
+    escrib("Ingresa el número de términos:");
+    leer(n);
+
+    escrib("Serie de Fibonacci:");
+    escrib(t1);
+    escrib(t2);
+
+    i = 3;
+
+    mientras(i < n + 1){
+        escrib(t3);
+        t1 = t2;
+        t2 = t3;
+        t3 = t1 + t2;
+
+        i = i + 1;
+    };
+
+};

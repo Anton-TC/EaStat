@@ -1,0 +1,10 @@
+inicio
+ent ArrA[5];
+ent i;
+ent p;
+ent j;
+
+principal{
+    ArrA[5] = 1;
+    escrib(ArrA[5]);
+};
