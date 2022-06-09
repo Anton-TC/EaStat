@@ -1,20 +1,8 @@
 {
-	"1": {"indice": "1", "operacion": "gotoM", "opdo1": "", "opdo2": "", "destino": 12},
-	"2": {"indice": "2", "operacion": "*", "opdo1": 10000, "opdo2": 34000, "destino": 19000},
-	"3": {"indice": "3", "operacion": "regresa", "opdo1": "", "opdo2": "", "destino": 19000},
-	"4": {"indice": "4", "operacion": "endfunc", "opdo1": "", "opdo2": "", "destino": ""},
-	"5": {"indice": "5", "operacion": "era", "opdo1": "z", "opdo2": "", "destino": ""},
-	"6": {"indice": "6", "operacion": "+", "opdo1": 10000, "opdo2": 10001, "destino": 19000},
-	"7": {"indice": "7", "operacion": "param", "opdo1": 19000, "opdo2": "", "destino": 10000},
-	"8": {"indice": "8", "operacion": "gosub", "opdo1": "z", "opdo2": "", "destino": ""},
-	"9": {"indice": "9", "operacion": "=", "opdo1": 1000, "opdo2": "", "destino": 19001},
-	"10": {"indice": "10", "operacion": "regresa", "opdo1": "", "opdo2": "", "destino": 19001},
-	"11": {"indice": "11", "operacion": "endfunc", "opdo1": "", "opdo2": "", "destino": ""},
-	"12": {"indice": "12", "operacion": "era", "opdo1": "w", "opdo2": "", "destino": ""},
-	"13": {"indice": "13", "operacion": "param", "opdo1": 34000, "opdo2": "", "destino": 10000},
-	"14": {"indice": "14", "operacion": "param", "opdo1": 34001, "opdo2": "", "destino": 10001},
-	"15": {"indice": "15", "operacion": "gosub", "opdo1": "w", "opdo2": "", "destino": ""},
-	"16": {"indice": "16", "operacion": "=", "opdo1": 1001, "opdo2": "", "destino": 19000},
-	"17": {"indice": "17", "operacion": "escrib", "opdo1": "", "opdo2": "", "destino": 19000},
-	"18": {"indice": "18", "operacion": "END", "opdo1": "", "opdo2": "", "destino": ""}
+	"1": {"indice": "1", "operacion": "gotoM", "opdo1": "", "opdo2": "", "destino": 2},
+	"2": {"indice": "2", "operacion": "verif", "opdo1": 34000, "opdo2": "", "destino": 5},
+	"3": {"indice": "3", "operacion": "m", "opdo1": 34000, "opdo2": 6, "destino": 19000},
+	"4": {"indice": "4", "operacion": "+", "opdo1": 34001, "opdo2": 1000, "destino": 31000},
+	"5": {"indice": "5", "operacion": "=", "opdo1": 34000, "opdo2": "", "destino": 31000},
+	"6": {"indice": "6", "operacion": "END", "opdo1": "", "opdo2": "", "destino": ""}
 }

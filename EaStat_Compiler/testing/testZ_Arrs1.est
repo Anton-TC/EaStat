@@ -1,0 +1,6 @@
+inicio
+ent ArrA[5][5];
+
+principal{
+    ArrA[1][3] = 1;
+};
