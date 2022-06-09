@@ -1,3 +1,3 @@
 {
-	"Global": {"nombre": "Global", "tipo": "vacio", "returnCount": 0, "dirInicio": 2, "dirVar": -1, "firma": [], "numVars": [9, 0, 0], "numTemps": [2, 0, 0, 0, 2]}
+	"Global": {"nombre": "Global", "tipo": "vacio", "returnCount": 0, "dirInicio": 2, "dirVar": -1, "firma": [], "numVars": [49, 0, 0], "numTemps": [9, 0, 0, 0, 5]}
 }

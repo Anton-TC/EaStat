@@ -217,10 +217,7 @@ def p_variable1(p):
 
         # Insertar tipo y dir temporal pntr en el stack de operandos
         stkOperandos.append(dirPntr)
-        stkTipos.append('pntr')
-
-        # Sacar FF
-        stkTipos.pop()
+        stkTipos.append(dirTipo)
 
 def p_variable2(p):
     '''
@@ -285,6 +282,8 @@ def p_varID(p):
         Dimension = [myVar, DIM]
         stkDim.append(Dimension)
         stkOperadores.append('_FF')
+        stkOperandos.pop()
+        stkTipos.pop()
 
 #--------------------------------------------------------------------#
 # p_braIzqAccArr()

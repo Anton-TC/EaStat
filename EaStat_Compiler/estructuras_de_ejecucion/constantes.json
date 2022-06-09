@@ -1,5 +1,12 @@
 {
-	"5": {"valor": 5, "dir": 34000, "tipo": "ent"},
-	"1": {"valor": 1, "dir": 34001, "tipo": "ent"},
-	"1000": {"valor": 1000, "dir": 34002, "tipo": "ent"}
+	"8": {"valor": 8, "dir": 34000, "tipo": "ent"},
+	"9": {"valor": 9, "dir": 34001, "tipo": "ent"},
+	"1": {"valor": 1, "dir": 34002, "tipo": "ent"},
+	"1036": {"valor": 1036, "dir": 34003, "tipo": "ent"},
+	"59": {"valor": 59, "dir": 34004, "tipo": "ent"},
+	"5": {"valor": 5, "dir": 34005, "tipo": "ent"},
+	"6": {"valor": 6, "dir": 34006, "tipo": "ent"},
+	"2": {"valor": 2, "dir": 34007, "tipo": "ent"},
+	"1000": {"valor": 1000, "dir": 34008, "tipo": "ent"},
+	"3": {"valor": 3, "dir": 34009, "tipo": "ent"}
 }
