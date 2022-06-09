@@ -210,7 +210,7 @@ def p_variable1(p):
         dirPntr = indicesTemp[4] 
 
         # Generar cuádruplo de suma
-        generaCuadruplo('s', res, direccion, dirPntr)
+        generaCuadruplo('+', res, direccion, dirPntr)
 
         # Actualizar índices
         indicesTemp[4] = indicesTemp[4] + 1
@@ -335,12 +335,21 @@ def p_braDerAccArr(p):
     arrVar = dimension[0]
     dimNum = dimension[1]
 
-    # Extraer el límite superior
+    # Extraer el límite superior y convertirlo a constante
     limSup = arrVar.dimensiones[dimNum - 1][0]
+    
+    # Registrar la dirección como constante
+    appendConst('ent', limSup)
+
+    # Extraer constante del stack de operandos
+    dirLimSup = stkOperandos.pop()
+    dirTipo = stkTipos.pop()
+
+    # Extraer la M
     m = arrVar.dimensiones[dimNum - 1][1]
 
     # Generar cuadruplo 'verif'
-    generaCuadruplo('verif', resultado2, '', limSup)
+    generaCuadruplo('verif', resultado2, '', dirLimSup)
 
     # Validar si hay más dimensiones
     if dimNum == 1:
@@ -361,11 +370,21 @@ def p_braDerAccArr(p):
         # Asignar temporal de resultado
         dirTemp = indicesTemp[indice] 
 
+        # Registrar m como constante
+        appendConst('ent', m)
+
+        # Extraer constante del stack de operandos
+        direccionM = stkOperandos.pop()
+        dirTipo = stkTipos.pop()
+
         # Generar cuadruplo multiplicacióne '*' 
-        generaCuadruplo('m', resultado2, m, dirTemp)
+        generaCuadruplo('*', resultado2, direccionM, dirTemp)
 
         # Actualizar índices
         indicesTemp[indice] = indicesTemp[indice] + 1
+
+        # Quitar Fondo Falso
+        stkOperadores.pop()
 
         # Insertar resultado en el stack de operandos y tipos
         stkOperandos.append(dirTemp)
@@ -2072,7 +2091,7 @@ def buscar(dir):
     
     return archivos[int(numAr) - 1]
 
-test = True
+test = False
 if test:
     # Test directory
     dir = 'EaStat_Compiler/testing/'

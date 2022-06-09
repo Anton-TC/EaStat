@@ -1,9 +1,10 @@
 inicio
-ent ArrA[5][5];
+ent ArrA[5];
 ent i;
 ent p;
 ent j;
 
 principal{
-    ArrA[i * p][j + i] = 1;
+    ArrA[5] = 1;
+    escrib(ArrA[5]);
 };

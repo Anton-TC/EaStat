@@ -66,15 +66,15 @@ class Segmento():
             return self.car[direccion - self.dirBC]
 
         # Buscar si la dirección forma parte de los valores booleanos, cadena o pointer
-        elif self.cBool:
+        if self.cBool:
             if direccion >= self.dirBB and direccion < self.dirBB + 3000:
                 return self.bool[direccion - self.dirBB]
         
-        elif self.cCad:
+        if self.cCad:
             if direccion >= self.dirBS and direccion < self.dirBS + 3000:
                 return self.cadena[direccion - self.dirBS]
         
-        elif self.cPntr:
+        if self.cPntr:
             if direccion >= self.dirBP and direccion < self.dirBP + 3000:
                 return self.pntr[direccion - self.dirBP]
 
@@ -91,15 +91,15 @@ class Segmento():
             self.car[direccion - self.dirBC] = valor
 
         # Buscar si la dirección forma parte de los valores booleanos, cadena o pointer
-        elif self.cBool:
+        if self.cBool:
             if direccion >= self.dirBB and direccion < self.dirBB + 3000:
                 self.bool[direccion - self.dirBB] = valor
         
-        elif self.cCad:
+        if self.cCad:
             if direccion >= self.dirBS and direccion < self.dirBS + 3000:
                 self.cadena[direccion - self.dirBS] = valor
         
-        elif self.cPntr:
+        if self.cPntr:
             if direccion >= self.dirBP and direccion < self.dirBP + 3000:
                 self.pntr[direccion - self.dirBP] = valor
 

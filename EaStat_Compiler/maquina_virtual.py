@@ -1,5 +1,6 @@
 from ast import Pass
 from asyncio import constants
+from cmath import exp
 import codecs
 import os
 import json
@@ -608,8 +609,22 @@ def ejecutar(pideAMemoria):
 
             # Eliminar memoria LOCAL
             pideAMemoria.eliminarUltimoScope()
-        elif operacion == '':
-            pass
+        elif operacion == 'verif':
+            # Extraer expresión de transición del cuádruplo
+            expTrans = pideAMemoria.obtenerValor(currentCuad["opdo1"], currScope)
+            
+            # Extraer límite superior
+            limSup = pideAMemoria.obtenerValor(currentCuad["destino"], currScope)
+            
+            # Realizar verificación de rango
+            if expTrans < 0 or expTrans > limSup:
+                levantaError.fueraDeLimites()
+
+            # Actualizar IP
+            ip = ip + 1
+
+            # Reinsertar el scope actual
+            stkScopes.append(currScope)
 
         # Obtener el siguiente cuádruplo
         currentCuad = misCuadruplos[str(ip)]
