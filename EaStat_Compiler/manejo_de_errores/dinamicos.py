@@ -11,6 +11,7 @@ class ControladorErrores():
 
         raise Exception("Tipo de input incompatible")
 
+    # Levanta un error si se intenta colocar un índice fuera de los rangos del arreglo
     def fueraDeLimites(self):
         print(self.separadorA)
         print('Oh que la... decide bien tus tamaños pues...')

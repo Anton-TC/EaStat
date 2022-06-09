@@ -188,7 +188,7 @@ def p_variable1(p):
     # Extraer la variable en la dimensión
     var = func.tabla.get(stkArrs.pop())
 
-    if var.isArray:
+    if var.esArreglo:
         # Extraer el resultado de la formula
         res = stkOperandos.pop()
         resTipo = stkTipos.pop()
@@ -277,7 +277,7 @@ def p_varID(p):
     stkTipos.append(myVar.tipo)
 
     # En caso de que la variable sea arreglo
-    if myVar.isArray:
+    if myVar.esArreglo:
         DIM = 1
         Dimension = [myVar, DIM]
         stkDim.append(Dimension)
@@ -309,7 +309,7 @@ def p_braIzqAccArr(p):
     myVar = func.tabla.get(arrID)
 
     # Validar que la variable es arreglo
-    if not myVar.isArray:
+    if not myVar.esArreglo:
         llamaError.indexacionAVarNoArreglo(arrID)
 
 #--------------------------------------------------------------------#
@@ -326,6 +326,10 @@ def p_braDerAccArr(p):
     # Extraer resultado de la expresión
     resultado2 = stkOperandos.pop()
     tipoRes2 = stkTipos.pop()
+
+    # Verificar que el tipo de resultado es correcto
+    if tipoRes2 != 'ent':
+        llamaError.errorDeIndexacion()
 
     # Extarer dimensión
     dimension = stkDim.pop()
@@ -449,7 +453,7 @@ def p_dec_vars1(p):
     func = directoriofs.get(scope)
     
     # Verificar que la variable tiene dimensiones
-    if func.tabla.isArray(arrNombre):
+    if func.tabla.esArreglo(arrNombre):
         
         # Calcular las M's
         func.tabla.calculaMs(arrNombre, R)

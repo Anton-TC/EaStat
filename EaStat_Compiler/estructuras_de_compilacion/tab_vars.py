@@ -9,7 +9,7 @@ class Variable():
         self.nombre = nombre
         self.dir = dir
         self.tam = 1
-        self.isArray = False
+        self.esArreglo = False
         self.dimensiones = []
         
     #--------------------------------------------------------------------#
@@ -24,7 +24,7 @@ class Variable():
                 ', Tipo: '      , self.tipo,
                 ', Dir: '       , self.dir, 
                 ', Tam: '       , self.tam,
-                ', ¿Arr?: '     , self.isArray,
+                ', ¿Arr?: '     , self.esArreglo,
                 ', Dims: '      , self.dimensiones, '\n')
 
 class TablaVars():
@@ -106,13 +106,13 @@ class TablaVars():
     #--------------------------------------------------------------------#
     def setAsArray(self, nombreVar):
         var = self.get(nombreVar)
-        var.isArray = True
+        var.esArreglo = True
     #--------------------------------------------------------------------#
-    # isArray()
+    # esArreglo()
     #   Método para verificar si una variable es arreglo
     #--------------------------------------------------------------------#
-    def isArray(self, nombreVar):
-        return self.get(nombreVar).isArray
+    def esArreglo(self, nombreVar):
+        return self.get(nombreVar).esArreglo
     
     #--------------------------------------------------------------------#
     # calculaMs()

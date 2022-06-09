@@ -170,4 +170,12 @@ class ControladorErrores():
         print(self.separadorA)
         print("No recuerdo que me dijeras que ", nombreVar, " es un arreglo")
         print(self.separadorB)
-        raise Exception('Intento de indexación a variable normal')    
+        raise Exception('Intento de indexación a variable normal')
+
+    # Levanta un error si se intenta indexar una variable con un tipo de dato incompatible
+    def errorDeIndexacion(self):
+        print(self.separadorA)
+        print("Bruh... ¿Qué clase de indexación es esa?")
+        print(self.separadorB)
+        raise Exception('Intento de indexación con expresión incompatible')
+
