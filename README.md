@@ -1,1 +1,2 @@
 # EaStat
+En este repositorio existen dos versiones, sin embargo ambos contienen exactamente los mismo. El motivo se debe a que el manejo de los directorios internos en ejecución tienen un comportamiento que no he podido solucionar en una sola entrega, es por ello que en caso de que uno no funcione, recomiendo ejecutar la "versión B"
