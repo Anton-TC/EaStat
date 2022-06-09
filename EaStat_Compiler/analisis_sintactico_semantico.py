@@ -77,7 +77,7 @@ def p_programa1(p):
     directoriofs.get('Global').updateTemps(indicesTemp)
 
     #print('Imprimiendo directorio de funciones...\n')
-    directoriofs.printDic()
+    #directoriofs.printDic()
 
     # Eliminar todas las tablas de variables
     directoriofs.deleteTablasVars()
