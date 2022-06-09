@@ -6,9 +6,8 @@ vacio funcc(ent var){
 };
 
 vacio func(ent var){
-    ent Arr1[3];
-    Arr1[2] = var;
-    funcc(Arr1[2]);
+    escrib(var);
+    funcc(var);
 };
 
 principal{
