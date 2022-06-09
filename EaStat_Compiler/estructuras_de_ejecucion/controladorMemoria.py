@@ -82,12 +82,20 @@ class controladorDeMem():
             # Revisar si la dirección es de variables o de temporales
             if dir >= 10000 and dir < 19000: # Variables
                 memLocal[0].set(dir, valor)
-            else:   # Temporales
-                # Obtener el valor de la dirección puntero
-                newDir = memLocal[1].get(dir)
+            else:
+                # Revisar si la dirección es de tipo pointer
+                if dir >= 31000 and dir < 34000:
+                    # Obtener el valor de la dirección puntero
+                    newDir = memLocal[1].get(dir)
 
-                # Llamar recursivamente
-                self.guardarValor(newDir, valor, scope)
+                    # Llamar recursivamente
+                    if newDir != None:
+                        self.guardarValor(newDir, valor, scope)
+                    else:
+                        memLocal[1].set(dir, valor)
+                else:
+                    # Temporales
+                    memLocal[1].set(dir, valor)
             
             # Regresar memoria local al stack
             self.memoria.append(memLocal)
@@ -106,6 +114,10 @@ class controladorDeMem():
         else:
             # Extraer el scope anterior
             scopeAnterior = self.memoria.pop()
+            
+            # Quitar direcciones tipo pointer
+            while dirOrigen >= 31000 and dirOrigen < 34000:
+                dirOrigen = scopeAnterior[1].get(dirOrigen)
 
             # Revisar si la dirección es de variables o de temporales
             # y extraer el dato de la dirección origen del scope anterior 
@@ -114,6 +126,7 @@ class controladorDeMem():
             elif dirOrigen >= 10000 and dirOrigen < 19000: # Variables Locales
                 param = scopeAnterior[0].get(dirOrigen)
             else:   # Temporales
+
                 param = scopeAnterior[1].get(dirOrigen)
 
             # Mandar el dato a la dirección destino del scope actual
