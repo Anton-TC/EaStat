@@ -77,7 +77,7 @@ def p_programa1(p):
     directoriofs.get('Global').updateTemps(indicesTemp)
 
     #print('Imprimiendo directorio de funciones...\n')
-    directoriofs.printDic()
+    #directoriofs.printDic()
 
     # Eliminar todas las tablas de variables
     directoriofs.deleteTablasVars()
@@ -186,7 +186,11 @@ def p_variable1(p):
     func = directoriofs.get(currFunct)
 
     # Extraer la variable en la dimensión
-    var = func.tabla.get(stkArrs.pop())
+    arr = stkArrs.pop()
+    if func.tabla.exists(arr):
+        var = func.tabla.get(arr)
+    else:
+        var = directoriofs.get('Global').tabla.get(arr)
 
     if var.esArreglo:
         # Extraer el resultado de la formula
@@ -2097,7 +2101,7 @@ def buscar(dir):
 test = False
 if test:
     # Test directory
-    dir = 'EaStat_Compiler/testing/'
+    dir = '/testing/'
     fileName = '/testing/'
     file = buscar(dir)
     prueba = dir + file

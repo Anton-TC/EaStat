@@ -186,7 +186,11 @@ def p_variable1(p):
     func = directoriofs.get(currFunct)
 
     # Extraer la variable en la dimensión
-    var = func.tabla.get(stkArrs.pop())
+    arr = stkArrs.pop()
+    if func.tabla.exists(arr):
+        var = func.tabla.get(arr)
+    else:
+        var = directoriofs.get('Global').tabla.get(arr)
 
     if var.esArreglo:
         # Extraer el resultado de la formula

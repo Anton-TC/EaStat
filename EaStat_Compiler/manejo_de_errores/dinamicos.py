@@ -19,3 +19,9 @@ class ControladorErrores():
 
         raise Exception("Acceso a arreglo fuera de los límites")
 
+    def variablesSinValor(self):
+        print(self.separadorA)
+        print('Mijo.. no olvides asignarle valor a tus variables, ahí te encargo...')
+        print(self.separadorB)
+
+        raise Exception("Operación entre valores Null")
