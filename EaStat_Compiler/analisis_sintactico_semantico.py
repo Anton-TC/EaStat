@@ -327,6 +327,10 @@ def p_braDerAccArr(p):
     resultado2 = stkOperandos.pop()
     tipoRes2 = stkTipos.pop()
 
+    # Verificar que el tipo de resultado es correcto
+    if tipoRes2 != 'ent':
+        llamaError.errorDeIndexacion()
+
     # Extarer dimensión
     dimension = stkDim.pop()
 
