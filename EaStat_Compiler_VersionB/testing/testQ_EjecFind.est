@@ -1,0 +1,37 @@
+inicio
+ent ArrA[5];
+ent i;
+ent j;
+ent k;
+
+principal{
+    ArrA[0] = 1;
+    ArrA[1] = 2;
+    ArrA[2] = 3;
+    ArrA[3] = 4;
+    ArrA[4] = 5;
+    ArrA[5] = 6;
+
+    escrib("Ingresa el numero a buscar del 1 al 6:");
+    leer(j);
+
+    i = 0;
+
+    mientras(i < 6){
+        k = ArrA[i];
+
+        escrib("Bucsando en i =");
+        escrib(i);
+
+        si(j == k){
+            escrib("Lo encontre en i =");
+            escrib(i);
+            i = 6;
+        } otro {
+            escrib("Número no encontrado en i =");
+            escrib(i);
+        };
+        
+        i = i + 1;
+    };
+};

@@ -1,0 +1,74 @@
+inicio
+ent ArrA[5];
+ent i;
+ent j;
+ent tmp;
+
+principal{
+    escrib("Inserta 6 valores numéricos desordenados:");
+    
+    escrib("Valor 1:");
+    leer(i);
+    ArrA[0] = i;
+    
+    escrib("Valor 2:");
+    leer(i);
+    ArrA[1] = i;
+    
+    escrib("Valor 3:");
+    leer(i);
+    ArrA[2] = i;
+    
+    escrib("Valor 4:");
+    leer(i);
+    ArrA[3] = i;
+    
+    escrib("Valor 5:");
+    leer(i);
+    ArrA[4] = i;
+    
+    escrib("Valor 6:");
+    leer(i);
+    ArrA[5] = i;
+
+    i = 0;
+    j = 0;
+    
+    mientras(i < 6){
+
+        mientras(j < 5){
+
+            si(ArrA[j] > ArrA[j + 1]){
+                tmp = ArrA[j];
+                ArrA[j] = ArrA[j + 1];
+                ArrA[j + 1] = tmp;
+            };
+
+            j = j + 1;
+        };
+
+        j = 0;
+        i = i + 1;
+    };
+
+    escrib(" ");
+    escrib("Resultado:");
+
+    escrib("Valor 1:");
+    escrib(ArrA[0]);
+    
+    escrib("Valor 2:");
+    escrib(ArrA[1]);
+    
+    escrib("Valor 3:");
+    escrib(ArrA[2]);
+    
+    escrib("Valor 4:");
+    escrib(ArrA[3]);
+    
+    escrib("Valor 5:");
+    escrib(ArrA[4]);
+    
+    escrib("Valor 6:");
+    escrib(ArrA[5]);
+};

@@ -186,7 +186,11 @@ def p_variable1(p):
     func = directoriofs.get(currFunct)
 
     # Extraer la variable en la dimensión
-    var = func.tabla.get(stkArrs.pop())
+    arr = stkArrs.pop()
+    if func.tabla.exists(arr):
+        var = func.tabla.get(arr)
+    else:
+        var = directoriofs.get('Global').tabla.get(arr)
 
     if var.esArreglo:
         # Extraer el resultado de la formula
@@ -281,7 +285,6 @@ def p_varID(p):
         DIM = 1
         Dimension = [myVar, DIM]
         stkDim.append(Dimension)
-        stkOperadores.append('_FF')
         stkOperandos.pop()
         stkTipos.pop()
 
@@ -311,6 +314,9 @@ def p_braIzqAccArr(p):
     # Validar que la variable es arreglo
     if not myVar.esArreglo:
         llamaError.indexacionAVarNoArreglo(arrID)
+
+    # Insertar fondo falso
+    stkOperadores.append('_FF')
 
 #--------------------------------------------------------------------#
 # p_braDerAccArr()
@@ -417,6 +423,9 @@ def p_braDerAccArr(p):
 
         # Actualizar índices
         indicesTemp[indice] = indicesTemp[indice] + 1
+
+        # Quitar Fondo Falso
+        stkOperadores.pop()
 
         # Insertar resultado en el stack de operandos y tipos
         stkOperandos.append(dirTemp)

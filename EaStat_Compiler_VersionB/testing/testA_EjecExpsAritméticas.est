@@ -1,0 +1,10 @@
+inicio
+ent i;
+ent j;
+
+principal{
+    i = 2;
+    j = 3;
+
+    escrib(i + j);
+};

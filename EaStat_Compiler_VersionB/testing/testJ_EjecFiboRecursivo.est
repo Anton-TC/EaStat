@@ -1,0 +1,24 @@
+inicio
+ent input;
+ent resultado;
+
+ent fibo(ent x){
+    si(x == 0){
+        regresa(0);
+    };
+
+    si(x == 1){
+        regresa(1);
+    };
+
+    regresa(fibo(x - 1) + fibo(x - 2));
+};
+
+principal{
+    escrib("Ingresa el número de términos:");
+    leer(input);
+
+    resultado = fibo(input - 1);
+    escrib("El resultado es:");
+    escrib(resultado);
+};

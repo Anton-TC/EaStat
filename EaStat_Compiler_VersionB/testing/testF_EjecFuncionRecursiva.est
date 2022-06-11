@@ -1,0 +1,18 @@
+inicio
+ent eVar1;
+ent eVar2;
+
+ent recursivo(ent eVarA){
+    si(eVarA < 5){
+        regresa (1 + recursivo(eVarA + 1));
+    };
+    regresa(1);
+};
+
+principal{
+    eVar1 = 0;
+    
+    eVar2 = recursivo(eVar1);
+
+    escrib(eVar2);
+};

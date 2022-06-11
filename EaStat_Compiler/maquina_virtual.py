@@ -9,6 +9,8 @@ import json
 import re
 from re import T
 import sys
+from tkinter import N
+from tkinter.messagebox import NO
 import numpy
 
 from analisis_sintactico_semantico import parser
@@ -132,8 +134,8 @@ def buscar(dir):
     for base, dirs, files in os.walk(dir):
         archivos.append(files)
 
-    #print(archivos)
     archivos = archivos[0]
+    archivos.remove(archivos[0])
 
     print('Selecciona el test a ejecutar: ')
 
@@ -216,6 +218,20 @@ def getConfigConsts(misConstantes):
     return config
 
 #--------------------------------------------------------------------#
+# checkIfNone()
+#   Revisa si al menos uno de dos valores son None.
+# Parámetros:
+#   Operando1: Valor 1.
+#   Operando2: Valor 2.
+# Resultado:
+#   Se levanta un error por intentar hacer una operación entre
+#   variables sin asignación.
+#--------------------------------------------------------------------#
+def checkIfNone(operando1, operando2):
+    if operando1 == None or operando2 == None:
+        levantaError.variablesSinValor();
+        
+#--------------------------------------------------------------------#
 # ejecutar()
 #   Realiza la ejecución de los cuadruplos y avisa si la ejecución
 #   fue exitosa.
@@ -246,11 +262,19 @@ def ejecutar(pideAMemoria):
             opdo1 = pideAMemoria.obtenerValor(currentCuad["opdo1"], currScope)
             opdo2 = pideAMemoria.obtenerValor(currentCuad["opdo2"], currScope)
             
+            # Verificar que las variables tengan valor
+            checkIfNone(opdo1, opdo2)
+
             # Realizar operación
             res = opdo1 + opdo2
             
             # Guardar resultado en memoria
-            pideAMemoria.guardarValor(currentCuad["destino"], res, currScope)
+            destino = currentCuad["destino"]
+            
+            if destino >= 31000 and destino < 34000:
+                pideAMemoria.reescribirApuntador(destino, res, currScope)
+            else:
+                pideAMemoria.guardarValor(destino, res, currScope)
 
             # Actualizar IP
             ip = ip + 1
@@ -262,6 +286,9 @@ def ejecutar(pideAMemoria):
             # Extraer operadores del cuádruplo
             opdo1 = pideAMemoria.obtenerValor(currentCuad["opdo1"], currScope)
             opdo2 = pideAMemoria.obtenerValor(currentCuad["opdo2"], currScope)
+            
+            # Verificar que las variables tengan valor
+            checkIfNone(opdo1, opdo2)
             
             # Realizar operación
             res = opdo1 - opdo2
@@ -280,6 +307,9 @@ def ejecutar(pideAMemoria):
             opdo1 = pideAMemoria.obtenerValor(currentCuad["opdo1"], currScope)
             opdo2 = pideAMemoria.obtenerValor(currentCuad["opdo2"], currScope)
             
+            # Verificar que las variables tengan valor
+            checkIfNone(opdo1, opdo2)
+            
             # Realizar operación
             res = opdo1 * opdo2
             
@@ -297,6 +327,9 @@ def ejecutar(pideAMemoria):
             opdo1 = pideAMemoria.obtenerValor(currentCuad["opdo1"], currScope)
             opdo2 = pideAMemoria.obtenerValor(currentCuad["opdo2"], currScope)
             
+            # Verificar que las variables tengan valor
+            checkIfNone(opdo1, opdo2)
+            
             # Realizar operación
             res = opdo1 / opdo2
             
@@ -312,6 +345,9 @@ def ejecutar(pideAMemoria):
         elif operacion == '=':
             # Extraer operadores del cuádruplo
             opdo1 = pideAMemoria.obtenerValor(currentCuad["opdo1"], currScope)
+            
+            # Verificar que las variables tengan valor
+            checkIfNone(opdo1, '.')
            
             # Guardar valor en memoria
             pideAMemoria.guardarValor(currentCuad["destino"], opdo1, currScope)
@@ -326,6 +362,9 @@ def ejecutar(pideAMemoria):
             # Extraer operadores del cuádruplo
             opdo1 = pideAMemoria.obtenerValor(currentCuad["opdo1"], currScope)
             opdo2 = pideAMemoria.obtenerValor(currentCuad["opdo2"], currScope)
+            
+            # Verificar que las variables tengan valor
+            checkIfNone(opdo1, opdo2)
             
             # Realizar operación
             res = opdo1 > opdo2
@@ -344,6 +383,9 @@ def ejecutar(pideAMemoria):
             opdo1 = pideAMemoria.obtenerValor(currentCuad["opdo1"], currScope)
             opdo2 = pideAMemoria.obtenerValor(currentCuad["opdo2"], currScope)
             
+            # Verificar que las variables tengan valor
+            checkIfNone(opdo1, opdo2)
+            
             # Realizar operación
             res = opdo1 < opdo2
             
@@ -360,6 +402,9 @@ def ejecutar(pideAMemoria):
             # Extraer operadores del cuádruplo
             opdo1 = pideAMemoria.obtenerValor(currentCuad["opdo1"], currScope)
             opdo2 = pideAMemoria.obtenerValor(currentCuad["opdo2"], currScope)
+            
+            # Verificar que las variables tengan valor
+            checkIfNone(opdo1, opdo2)
             
             # Realizar operación
             res = opdo1 != opdo2
@@ -378,6 +423,9 @@ def ejecutar(pideAMemoria):
             opdo1 = pideAMemoria.obtenerValor(currentCuad["opdo1"], currScope)
             opdo2 = pideAMemoria.obtenerValor(currentCuad["opdo2"], currScope)
             
+            # Verificar que las variables tengan valor
+            checkIfNone(opdo1, opdo2)
+            
             # Realizar operación
             res = opdo1 == opdo2
             
@@ -395,6 +443,9 @@ def ejecutar(pideAMemoria):
             opdo1 = pideAMemoria.obtenerValor(currentCuad["opdo1"], currScope)
             opdo2 = pideAMemoria.obtenerValor(currentCuad["opdo2"], currScope)
             
+            # Verificar que las variables tengan valor
+            checkIfNone(opdo1, opdo2)
+            
             # Realizar operación
             res = opdo1 or opdo2
             
@@ -411,6 +462,9 @@ def ejecutar(pideAMemoria):
             # Extraer operadores del cuádruplo
             opdo1 = pideAMemoria.obtenerValor(currentCuad["opdo1"], currScope)
             opdo2 = pideAMemoria.obtenerValor(currentCuad["opdo2"], currScope)
+            
+            # Verificar que las variables tengan valor
+            checkIfNone(opdo1, opdo2)
             
             # Realizar operación
             res = opdo1 and opdo2
@@ -474,6 +528,9 @@ def ejecutar(pideAMemoria):
         elif operacion == 'escrib':
             # Extraer operadores del cuádruplo
             value = pideAMemoria.obtenerValor(currentCuad["destino"], currScope)
+            
+            # Verificar que las variables tengan valor
+            checkIfNone(value, '.')
             
             # Imprimir valor
             print(value)
@@ -592,6 +649,10 @@ def ejecutar(pideAMemoria):
 
             # Asignar resultado a la variable GLOBAL de la función
             res = pideAMemoria.obtenerValor(dirRes, currScope)
+            
+            # Verificar que las variables tengan valor
+            checkIfNone(res, '.')
+
             pideAMemoria.guardarValor(dirDestino, res, 'Global')
 
             # Extarer el IP guardado en el stack de saltos
