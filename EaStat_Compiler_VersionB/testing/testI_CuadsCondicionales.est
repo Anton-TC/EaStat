@@ -1,8 +1,0 @@
-inicio
-ent eVar;
-
-principal{
-    si(5 > 0 || 7 == 7){
-        eVar = 5;
-    };
-};

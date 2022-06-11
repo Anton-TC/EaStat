@@ -1,0 +1,35 @@
+inicio
+ent ArrA[1][1];
+ent ArrB[1][1];
+ent ArrC[1][1];
+ent i;
+ent j;
+
+principal{
+    ArrA[0][0] = 1;
+    ArrA[0][1] = 1;
+    ArrA[1][0] = 1;
+    ArrA[1][1] = 1;
+    
+    ArrB[0][0] = 1;
+    ArrB[0][1] = 1;
+    ArrB[1][0] = 1;
+    ArrB[1][1] = 1;
+
+    i = 0;
+    j = 0;
+
+    mientras(i < 2){
+        mientras(j < 2){
+            ArrC[i][j] = ArrA[i][j] + ArrB[i][j];
+            j = j + 1;
+        };
+        j = 0;
+        i = i + 1;
+    };
+
+    escrib(ArrC[0][0]);
+    escrib(ArrC[0][1]);
+    escrib(ArrC[1][0]);
+    escrib(ArrC[1][1]);
+};

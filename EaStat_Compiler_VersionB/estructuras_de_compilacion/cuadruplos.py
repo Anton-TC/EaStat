@@ -69,7 +69,7 @@ class Arr_Cuadruplos():
             indx = indx + 1
         jsonString = jsonString + '\n}'
     
-        with open('./estructuras_de_ejecucion/cuadruplos.json', 'w') as outfile:
+        with open('.//estructuras_de_ejecucion/cuadruplos.json', 'w') as outfile:
             outfile.write(jsonString)
 
     #--------------------------------------------------------------------#

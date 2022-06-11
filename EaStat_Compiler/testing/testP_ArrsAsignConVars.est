@@ -1,0 +1,19 @@
+inicio
+ent ArrA[5];
+ent i;
+
+principal{
+    ArrA[0] = 1;
+    ArrA[1] = 2;
+    ArrA[2] = 3;
+    ArrA[3] = 4;
+    ArrA[4] = 5;
+    ArrA[5] = 6;
+
+    i = 0;
+
+    mientras(i < 6){
+        escrib(ArrA[i]);
+        i = i + 1;
+    };
+};

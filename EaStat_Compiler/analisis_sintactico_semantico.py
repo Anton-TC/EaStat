@@ -77,7 +77,7 @@ def p_programa1(p):
     directoriofs.get('Global').updateTemps(indicesTemp)
 
     #print('Imprimiendo directorio de funciones...\n')
-    #directoriofs.printDic()
+    directoriofs.printDic()
 
     # Eliminar todas las tablas de variables
     directoriofs.deleteTablasVars()
@@ -285,7 +285,6 @@ def p_varID(p):
         DIM = 1
         Dimension = [myVar, DIM]
         stkDim.append(Dimension)
-        stkOperadores.append('_FF')
         stkOperandos.pop()
         stkTipos.pop()
 
@@ -315,6 +314,9 @@ def p_braIzqAccArr(p):
     # Validar que la variable es arreglo
     if not myVar.esArreglo:
         llamaError.indexacionAVarNoArreglo(arrID)
+
+    # Insertar fondo falso
+    stkOperadores.append('_FF')
 
 #--------------------------------------------------------------------#
 # p_braDerAccArr()
@@ -421,6 +423,9 @@ def p_braDerAccArr(p):
 
         # Actualizar índices
         indicesTemp[indice] = indicesTemp[indice] + 1
+
+        # Quitar Fondo Falso
+        stkOperadores.pop()
 
         # Insertar resultado en el stack de operandos y tipos
         stkOperandos.append(dirTemp)

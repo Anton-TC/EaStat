@@ -20,7 +20,7 @@ from estructuras_de_ejecucion.segmento import Segmento
 from estructuras_de_ejecucion.controladorMemoria import controladorDeMem
 
 # Esconder el traceback 
-sys.tracebacklimit = 1
+#sys.tracebacklimit = 1
 
 # Inicializar el controlador de errores
 levantaError = ControladorErrores()
@@ -134,8 +134,8 @@ def buscar(dir):
     for base, dirs, files in os.walk(dir):
         archivos.append(files)
 
-    #print(archivos)
     archivos = archivos[0]
+    archivos.remove(archivos[0])
 
     print('Selecciona el test a ejecutar: ')
 
@@ -269,7 +269,12 @@ def ejecutar(pideAMemoria):
             res = opdo1 + opdo2
             
             # Guardar resultado en memoria
-            pideAMemoria.guardarValor(currentCuad["destino"], res, currScope)
+            destino = currentCuad["destino"]
+            
+            if destino >= 31000 and destino < 34000:
+                pideAMemoria.reescribirApuntador(destino, res, currScope)
+            else:
+                pideAMemoria.guardarValor(destino, res, currScope)
 
             # Actualizar IP
             ip = ip + 1

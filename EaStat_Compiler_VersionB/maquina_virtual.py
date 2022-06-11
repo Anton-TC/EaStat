@@ -1,3 +1,5 @@
+# Antonio Torres Carvajal - A01561769
+
 from ast import Pass
 from asyncio import constants
 from cmath import exp
@@ -18,7 +20,7 @@ from estructuras_de_ejecucion.segmento import Segmento
 from estructuras_de_ejecucion.controladorMemoria import controladorDeMem
 
 # Esconder el traceback 
-sys.tracebacklimit = 1
+#sys.tracebacklimit = 1
 
 # Inicializar el controlador de errores
 levantaError = ControladorErrores()
@@ -33,7 +35,7 @@ levantaError = ControladorErrores()
 #--------------------------------------------------------------------#
 def iniciarCompilador():
     # Inicializamos directorio de pruebas
-    dir = './testing/'
+    dir = './/testing/'
 
     # Prguntamos al usuario cuál archivo desea ejecutar
     file = buscar(dir)
@@ -57,21 +59,21 @@ def iniciarCompilador():
 
     # Importación de código objeto
     print('Importando código objeto...\n')
-    with open('./estructuras_de_ejecucion/cuadruplos.json') as json_file:
+    with open('.//estructuras_de_ejecucion/cuadruplos.json') as json_file:
         global misCuadruplos
         misCuadruplos = json.load(json_file)
     print('¡Cuádruplos importados!\n')
 
     # Importación del directorio de funciones
     print('importando estructuras de ejecución...\n')
-    with open('./estructuras_de_ejecucion/directorio.json') as json_file:
+    with open('.//estructuras_de_ejecucion/directorio.json') as json_file:
         global directoriofs
         directoriofs = json.load(json_file)
     print('¡Directorio importado!\n')
 
     # Importación de tabla de constantes
     print('Importando constantes identificadas\n')
-    with open('./estructuras_de_ejecucion/constantes.json') as json_file:
+    with open('.//estructuras_de_ejecucion/constantes.json') as json_file:
         misConstantes = json.load(json_file)
     print('¡Constantes importadas!\n')
 
@@ -132,8 +134,8 @@ def buscar(dir):
     for base, dirs, files in os.walk(dir):
         archivos.append(files)
 
-    #print(archivos)
     archivos = archivos[0]
+    archivos.remove(archivos[0])
 
     print('Selecciona el test a ejecutar: ')
 
@@ -267,7 +269,12 @@ def ejecutar(pideAMemoria):
             res = opdo1 + opdo2
             
             # Guardar resultado en memoria
-            pideAMemoria.guardarValor(currentCuad["destino"], res, currScope)
+            destino = currentCuad["destino"]
+            
+            if destino >= 31000 and destino < 34000:
+                pideAMemoria.reescribirApuntador(destino, res, currScope)
+            else:
+                pideAMemoria.guardarValor(destino, res, currScope)
 
             # Actualizar IP
             ip = ip + 1

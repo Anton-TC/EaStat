@@ -5,7 +5,16 @@ class controladorDeMem():
     def __init__(self, memoria):
         self.memoria = memoria
 
-    # Método para obtener un valor de una dirección específica de memoria
+    #--------------------------------------------------------------------#
+    # obtenerValor()
+    #   Método para obtener un valor de una dirección específica de
+    #   memoria.
+    # Parámetros:
+    #   dir: String con la dirección de memoria.
+    #   scope: String que ayuda a identificar qué segmento de memoria tomar. 
+    # Retorno:
+    #   Valor solicitado.
+    #--------------------------------------------------------------------#
     def obtenerValor(self, dir, scope):
         # Revisar si voy a buscar constantes
         if dir >= 34000 and dir < 46000:
@@ -21,10 +30,8 @@ class controladorDeMem():
             if dir >= 31000 and dir < 34000:
                 # Obtener el valor de la dirección puntero
                 newDir = self.memoria[1][1].get(dir)
-
                 # Llamar recursivamente
                 return self.obtenerValor(newDir, 'Global')
-
             # Regresar valor temporal
             return self.memoria[1][1].get(dir)
 
@@ -49,7 +56,17 @@ class controladorDeMem():
 
                 return scopeActual[1].get(dir)
 
-    # Método para guardar un valor de una dirección específica de memoria
+    #--------------------------------------------------------------------#
+    # guardarValor()
+    #   Método para guardar un valor de una dirección específica de
+    #   memoria.
+    # Parámetros:
+    #   dir: String con la dirección de memoria.
+    #   valor: Dato a guardar.
+    #   scope: String que ayuda a identificar qué segmento de memoria tomar. 
+    # Resultado:
+    #   Valor guardado.
+    #--------------------------------------------------------------------#
     def guardarValor(self, dir, valor, scope):
         # Revisar si voy a buscar constantes
         if dir >= 34000 and dir < 46000:
@@ -65,12 +82,8 @@ class controladorDeMem():
             if dir >= 31000 and dir < 34000:
                 # Obtener el valor de la dirección puntero
                 newDir = self.memoria[1][1].get(dir)
-
                 # Llamar recursivamente
-                if newDir != None:
-                    self.guardarValor(newDir, valor, 'Global')
-                else:
-                    self.memoria[1][1].set(dir, valor)
+                self.guardarValor(newDir, valor, 'Global')
             else:
                 # Temporales
                 self.memoria[1][1].set(dir, valor)
@@ -89,10 +102,7 @@ class controladorDeMem():
                     newDir = memLocal[1].get(dir)
 
                     # Llamar recursivamente
-                    if newDir != None:
-                        self.guardarValor(newDir, valor, scope)
-                    else:
-                        memLocal[1].set(dir, valor)
+                    self.guardarValor(newDir, valor, scope)
                 else:
                     # Temporales
                     memLocal[1].set(dir, valor)
@@ -100,7 +110,36 @@ class controladorDeMem():
             # Regresar memoria local al stack
             self.memoria.append(memLocal)
 
-    # Método que permite mandar parámetros entre distintos scopes
+    #--------------------------------------------------------------------#
+    # reescribirApuntador()
+    #   Método para reescribir la memoria a la que apunta un apuntador.
+    # Parámetros:
+    #   dirDestino: String con la dirección de memoria a modificar.
+    #   dirNueva: Nueva dirección a colocar.
+    #   scope: String que ayuda a identificar qué segmento de memoria tomar.
+    # Resultado:
+    #   Dirección guardada.
+    #--------------------------------------------------------------------#
+    def reescribirApuntador(self, dirDestino, dirNueva, scope):
+        if scope == 'Global':
+            self.memoria[1][1].set(dirDestino, dirNueva)
+        else:
+            # Extraer la memoria local más reciente
+            memLocal = self.memoria.pop()
+            memLocal[1].set(dirDestino, dirNueva)
+            
+            # Regresar memoria local al stack
+            self.memoria.append(memLocal)
+
+    #--------------------------------------------------------------------#
+    # mandarParam()
+    #   Método que permite mandar parámetros entre distintos scopes.
+    # Parámetros:
+    #   dirOrigen: String con la dirección de memoria origen.
+    #   dirDestino: Direcición a la cual pasar parámetro.
+    # Resultado:
+    #   Parámetros mandados al nuevo segmento de memoria.
+    #--------------------------------------------------------------------#
     def mandarParam(self, dirOrigen, dirDestino):
         # Extraer el scope actual
         scopeActual = self.memoria.pop()
@@ -138,15 +177,32 @@ class controladorDeMem():
             self.memoria.append(scopeAnterior)
             self.memoria.append(scopeActual)
 
-    # Método que agrega un nuevo scope al final de la pila
+    #--------------------------------------------------------------------#
+    # agregarScope()
+    #   Método que agrega un nuevo scope al final de la pila.
+    # Parámetros:
+    #   scope: Segmento de memoria a agregar al stack de memoria.
+    # Resultado:
+    #   Segmento de memoria insertado.
+    #--------------------------------------------------------------------#
     def agregarScope(self, scope):
         self.memoria.append(scope)
 
-    # Método que regresa el último scope de la pila
+    #--------------------------------------------------------------------#
+    # extraerScope()
+    #   Método que regresa el último scope de la pila.
+    # Retorno:
+    #   Segmento al final de memoria.
+    #--------------------------------------------------------------------#
     def extraerScope(self):
         return self.memoria.pop()
 
-    # Método que elimina el último scope de la pila
+    #--------------------------------------------------------------------#
+    # eliminarUltimoScope()
+    #   Método que elimina el último scope de la pila.
+    # Retorno:
+    #   Último segmento eliminado de memoria.
+    #--------------------------------------------------------------------#
     def eliminarUltimoScope(self):
         self.memoria.pop()
 
