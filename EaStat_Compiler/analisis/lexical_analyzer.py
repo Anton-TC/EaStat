@@ -110,14 +110,14 @@ def t_ID(t):
     return t
 
 def t_C_FLOT(t):
-    r'\d+\.\d*'
+    r'-?\d+\.\d*'
     
     # Convertir valor en flotante
     t.value = float(t.value)
     return t
 
 def t_C_ENT(t):
-    r'\d+'
+    r'-?\d+'
     
     # Convertir valor en entero
     t.value = int(t.value)

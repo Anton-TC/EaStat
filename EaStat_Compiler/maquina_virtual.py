@@ -20,7 +20,7 @@ from estructuras_de_ejecucion.segmento import Segmento
 from estructuras_de_ejecucion.controladorMemoria import controladorDeMem
 
 # Esconder el traceback 
-#sys.tracebacklimit = 1
+sys.tracebacklimit = 1
 
 # Inicializar el controlador de errores
 levantaError = ControladorErrores()
@@ -176,7 +176,7 @@ def generarSegmento(dirInicial, Tams, configTipos):
     return Segmento(dirInicial, Tams, configTipos[0], configTipos[1], configTipos[2])
 
 #--------------------------------------------------------------------#
-# generarSegmento()
+# generarSegmentoConstantes()
 #   Extrae las constantes de la tabla de constantes y las inserta
 #   en un segmento de memoria nueva.
 # Parámetros:

@@ -77,7 +77,7 @@ def p_programa1(p):
     directoriofs.get('Global').updateTemps(indicesTemp)
 
     #print('Imprimiendo directorio de funciones...\n')
-    directoriofs.printDic()
+    #directoriofs.printDic()
 
     # Eliminar todas las tablas de variables
     directoriofs.deleteTablasVars()
@@ -126,9 +126,6 @@ def p_programa3(p):
 #   - P3: Crea el directorio de funciones. 
 #   - P4: Registra la función global en el directorio de funciones.
 #   - P5: Añadir a la pila currF la función Global.
-# Resultado:
-#   - Nueva función registrada en el directorio de funciones.
-#   - Variable de función añadida a la tabla de variables globales.
 #--------------------------------------------------------------------#
 def p_inicio(p):
     'inicio : INICIO'
@@ -498,13 +495,13 @@ def p_dec_vars3(p):
 
 #--------------------------------------------------------------------#
 # p_registroVar()
-#   Regla gramatical para el tipo y el ID de una declaración de variable
+#   Regla gramatical para el tipo y el ID de una declaración de
+#   variable.
 #  
-#   - DV1: Manda a registrar la variable con el tipo y el id a tabla de
-#     variables de la función corresondiente.
-#   - DV2: Inserta nombre de variable al stack de declaración de arreglos.
-# Resultado:
-#   - La variable queda registrada en su respectiva función.
+#   - DV1: Manda a registrar la variable con el tipo y el id a tabla
+#          de variables de la función corresondiente.
+#   - DV2: Inserta nombre de variable al stack de declaración de
+#          arreglos.
 #--------------------------------------------------------------------#
 def p_registroVar(p):
     'registroVar : tipo ID'
@@ -600,11 +597,11 @@ def p_braDerDecArr(p):
 # p_func1()
 #   Regla gramatical para una declaración de función.
 #   
-#   - Valida que la función cuente con retornos si se declaró con 
+#   - F3: Valida que la función cuente con retornos si se declaró con 
 #     tipo de retorno.
-#   - Actualiza los contadores de variables locales y de temporales.
-#   - Genera cuádruplo 'endfunc'.
-#   - Reinicia los índices locales y temporales.
+#   - F4: Actualiza los contadores de variables locales y de temporales.
+#   - F5: Genera cuádruplo 'endfunc'.
+#   - F6: Reinicia los índices locales y temporales.
 #--------------------------------------------------------------------#
 def p_func1(p):
     'func : tipoFunc PAREIZQ params PAREDER cuerpoFunc PUCOMA'
@@ -636,12 +633,9 @@ def p_func1(p):
 # p_tipoFunc()
 #   Regla gramatical para los tipos de funciones
 #   
-#   - Registra una función en el directorio de funciones 
-#   - Registra su respectiva variable global si la función regresa un
-#   valor.
-# Resultado:
-#   - Nueva función registrada en el directorio de funciones.
-#   - Variable de función añadida a la tabla de variables globales.
+#   - F1: Registra una función en el directorio de funciones 
+#   - F2: Registra su respectiva variable global si la función regresa
+#         un valor.
 #--------------------------------------------------------------------#
 def p_tipoFunc(p):
     '''
@@ -750,11 +744,8 @@ def p_params3(p):
 # p_registroParam()
 #   Regla gramatical para parámetros
 #   
-#   - Registra un prámetro a la tabla de variables de su respectiva función
-#   - Actualiza la firma de la función en cuestión.
-# Resultado:
-#   - Nueva variable en la tabla de variables de la función en cuestión
-#   - Firma de la función en cuestión actualizada
+#   - P1: Registra un prámetro a la tabla de variables de su respectiva
+#     función y actualiza la firma de la función en cuestión.
 #--------------------------------------------------------------------#
 def p_registroParam(p):
     'parametro : tipo ID'
@@ -797,8 +788,8 @@ def p_estatuto2(p):
 # p_asignacion1()
 #   Regla gramatical para una asignación.
 #   
-#   - Valida si hay un '=' en la pila de operadores.
-#   - Genera cuádruplo de asignación.
+#   - A2: Valida si hay un '=' en la pila de operadores y genera
+#         cuádruplo de asignación.
 #--------------------------------------------------------------------#
 def p_asignacion1(p):
     'asignacion : variable igual expresion_a'
@@ -840,7 +831,7 @@ def p_asignacion1(p):
 # p_igual()
 #   Regla gramatical para detectar un operador '='.
 #   
-#   - Inserta el operador en el stack de operadores
+#   - A1: Inserta el operador en el stack de operadores
 #--------------------------------------------------------------------#
 def p_igual(p):
     'igual : IGUAL'
@@ -850,10 +841,11 @@ def p_igual(p):
 #--------------------------------------------------------------------#
 # p_regresa()
 #   Regla gramatical para el estatuto regresa.
-#   
-#   - Valida que el resultado de la expresión del retorno sea del mismo
-#     tipo que la función.
-#   - Genera el cuádruplo 'regresa' con el resultado de la expresión.
+#
+#   - R3: Valida que el resultado de la expresión del retorno sea del
+#         mismo tipo que la función.
+#   - R4: Genera el cuádruplo 'regresa' con el resultado de la
+#         expresión.
 #--------------------------------------------------------------------#
 def p_regresa(p):
     'regresa : registraRegresa PAREIZQ expresion_a PAREDER'
@@ -878,8 +870,8 @@ def p_regresa(p):
 # p_registraRegresa()
 #   Regla gramatical para el token REGRESA.
 #   
-#   - Valida que la función tiene valor de retorno.
-#   - Actualiza el contador de retornos.
+#   - R1: Valida que la función tiene valor de retorno.
+#   - R2: Actualiza el contador de retornos.
 #--------------------------------------------------------------------#
 def p_registraRegresa(p):
     'registraRegresa : REGRESA'
@@ -902,8 +894,8 @@ def p_registraRegresa(p):
 # p_lectura1()
 #   Regla gramatical para el estatuto 'leer'.
 #   
-#   - Valida si hay un 'leer' en la pila de operadores.
-#   - Genera cuádruplo de lectura.
+#   - L2: Valida si hay un 'leer' en la pila de operadores y genera
+#         cuádruplo de lectura.
 #--------------------------------------------------------------------#
 def p_lectura1(p):
     'lectura : leer PAREIZQ variable PAREDER'
@@ -925,9 +917,8 @@ def p_lectura1(p):
 #--------------------------------------------------------------------#
 # p_leer()
 #   Regla gramatical para el token 'LEER'.
-#   
-#   - Validar si sigue un operador de lectura.
-#   - Inserta el operador en la pila de operadores.
+# 
+#   - L1: Inserta el operador en la pila de operadores.
 #--------------------------------------------------------------------#
 def p_leer(p):
     'leer : LEER'
@@ -938,8 +929,8 @@ def p_leer(p):
 # p_escribir1()
 #   Regla gramatical para el estatuto 'escrib'.
 #   
-#   - Valida si hay un 'escrib' en la pila de operadores.
-#   - Genera cuádruplo de escritura.
+#   - E2: Valida si hay un 'escrib' en la pila de operadores y genera
+#         cuádruplo de escritura.
 #--------------------------------------------------------------------#
 def p_escribir1(p):
     'escribir : escrib PAREIZQ escribir2 PAREDER'
@@ -968,8 +959,7 @@ def p_escribir2(p):
 # p_escrib()
 #   Regla gramatical para el token 'ESCRIB'.
 #   
-#   - Validar si sigue un operador de escritura.
-#   - Inserta el operador en la pila de operadores.
+#   - E1: Inserta el operador en la pila de operadores.
 #--------------------------------------------------------------------#
 def p_escrib(p):
     'escrib : ESCRIB'
@@ -992,8 +982,7 @@ def p_condicion3(p):
 # p_condicion4()
 #   Regla gramatical para finalizar un estatuto condicional.
 #   
-#   - Obtener el salto al cuádruplo a actualizar de la pila de saltos.
-#   - Actualizar cuádrplo al indice actual.
+#   - C5: Actualizar cuádruplo tipo 'gotoF/goto' al índice actual.
 #--------------------------------------------------------------------#
 def p_condicion4(p):
     'condicion4 : fin'
@@ -1008,9 +997,9 @@ def p_condicion4(p):
 #   Regla gramatical para detectar el paréntesis derecho de un
 #   estatuto condicional o cíclico.
 #   
-#   - Valida que el resultado de la expresión sea de tipo BOOL.
-#   - Insertar índice a la pila de saltos
-#   - Generar cúadruplo 'gotoF'.
+#   - C1/M2: Valida que el resultado de la expresión sea de tipo BOOL.
+#   - C2/M3: Inserta índice a la pila de saltos y genera cuádruplo
+#            'gotoF'.
 #--------------------------------------------------------------------#
 def p_pareDerIfWhile(p):
     'pareDerIfWhile : PAREDER'
@@ -1035,9 +1024,9 @@ def p_pareDerIfWhile(p):
 # p_otro()
 #   Regla gramatical para el token OTRO.
 #   
-#   - Actualiza el salto del cuádruplo 'gotoF'.
-#   - Añadir índice actual a la pila de saltos.
-#   - Generar cuádruplo 'goto'.
+#   - C3: Actualiza el salto del cuádruplo 'gotoF'.
+#   - C4: Añadir índice actual a la pila de saltos y generar cuádruplo
+#        'goto'.
 #--------------------------------------------------------------------#
 def p_otro(p):
     'otro : OTRO'
@@ -1060,10 +1049,8 @@ def p_otro(p):
 # p_mientras1()
 #   Regla gramatical para el estatuto 'mientras'.
 #   
-#   - Extraer salto para el 'gotoF'.
-#   - Extraer salto para el 'goto'.
-#   - Generar cuádruplo 'goto'.
-#   - Actualizar cuádruplo 'gotoF'.
+#   - M4: Extraer salto para el 'gotoF', Generar cuádruplo 'goto' y
+#         actualizar cuádruplo 'gotoF'.
 #--------------------------------------------------------------------#
 def p_mientras1(p):
     'mientras : mientrasTkn PAREIZQ expresion_a pareDerIfWhile cuerpo'
@@ -1082,7 +1069,7 @@ def p_mientras1(p):
 # p_mientras()
 #   Regla gramatical para el token 'MIENTRAS'.
 #   
-#   - Inserta el índice actual al stack de saltos (lugar previo a la 
+#   - M1: Inserta el índice actual al stack de saltos (lugar previo a la 
 #     evaluación de la expresión).
 #--------------------------------------------------------------------#
 def p_mientras(p):
@@ -1091,13 +1078,6 @@ def p_mientras(p):
     stkSaltos.append(indiCuad) 
 
 # LLAMADA
-#--------------------------------------------------------------------#
-# p_llamada1()
-#   Regla gramatical para una llamada a función.
-#   
-#   - Regresar el ID del nombre de la función para próximas
-#     verificaciones semánticas.
-#--------------------------------------------------------------------#
 def p_llamada1(p):
     'llamada : idFunc pareIzqLlamada llamada2 pareDerLlamada'
 
@@ -1171,10 +1151,7 @@ def p_llamadaExp(p):
 # p_idFunc()
 #   Regla gramatical para detectar el ID de una función en una llamada.
 #   
-#   - Valida que la función existe en el directorio de funciones.
-#   - Inserta el ID de la llamada al stack de llamadas.
-# Resultado:
-#   - La variable queda registrada en su respectiva función.
+#   - Ll1: Verificar que la función existe
 #--------------------------------------------------------------------#
 def p_idFunc(p):
     'idFunc : ID'
@@ -1193,9 +1170,8 @@ def p_idFunc(p):
 # p_pareIzqLlamada()
 #   Regla gramatical para detectar el paréntesis izq. de una llamada.
 #   
-#   - Genera el cuádruplo ERA.
-#   - Inicializar indexador de firma.
-#   - Valida si la función de la llamada tiene parámetros e inserta un FF.
+#   - Ll2: Genera el cuádruplo ERA e inicializa indexador de firma.
+#          e inserta un FF.
 #--------------------------------------------------------------------#
 def p_pareIzqLlamada(p):
     'pareIzqLlamada : PAREIZQ'
@@ -1223,8 +1199,9 @@ def p_pareIzqLlamada(p):
 # p_paramExpr()
 #   Regla gramatical para detectar una expresión como parámetro.
 #   
-#   - Valida el resultado del argumento con el índice K en la firma.
-#   - Genera cuádruplo de parámetro con la diección del argumento 
+#   - Ll3: Valida el resultado del argumento con el índice K en la
+#          firma.
+#   - Ll4: Genera cuádruplo de parámetro con la diección del argumento 
 #     y la dir del parámetro.
 #--------------------------------------------------------------------#
 def p_paramExpr(p):
@@ -1260,8 +1237,8 @@ def p_paramExpr(p):
 #   Regla gramatical para detectar una coma en los parámetros de una
 #   llamada.
 #   
-#   - Actualiza el índice K.
-#   - Inserta un FF para evaluar la siguiente expresión.
+#   - Ll5 : Actualiza el índice K e inserta un FF para evaluar la
+#          siguiente expresión.
 #--------------------------------------------------------------------#
 def p_comaLlamada(p):
     'comaLlamada : COMA'
@@ -1274,13 +1251,13 @@ def p_comaLlamada(p):
 # p_pareDerLlamada()
 #   Regla gramatical para detectar el paréntesis der. de una llamada.
 #   
-#   - Verifica la congruencia del número de argumentos.
-#   - Genera cuádruplo 'GoSub'.
-#   - Valida si la función tiene retornos.
-#   - Genera cuádruplo de asignación de la variable global de la
-#     función a una temporal.
-#   - Mete el temporal al stack de operandos y su tipo al stack de
-#     tipos.
+#   - Ll6: Verifica la congruencia del número de argumentos y genera
+#          cuádruplo 'GoSub'.
+#   - Ll7: Valida si la función tiene retornos y genera cuádruplo de
+#          asignación de la variable global de la función a una
+#          temporal.
+#   - Ll8: Mete el temporal al stack de operandos y su tipo al stack de
+#          tipos.
 #--------------------------------------------------------------------#
 def p_pareDerLlamada(p):
     'pareDerLlamada : PAREDER'
@@ -1488,9 +1465,9 @@ def p_expresion_a2(p):
 # p_revisaO()
 #   Regla gramatical para revisión de la pila de operadores.
 #   
-#   - Valida si hay un '||' en la pila de operadores.
-#   - Genera cuádruplo de de comparación lógica.
-#   - Añade el temporal resultado en la pila de operandos.
+#   - EA1: Valida si hay un '||' en la pila de operadores, genera
+#          cuádruplo de de comparación lógica y añade el temporal
+#          resultado en la pila de operandos.
 #--------------------------------------------------------------------#
 def p_revisaO(p):
     'revisaO : fin'
@@ -1516,8 +1493,7 @@ def p_revisaO(p):
 # p_o()
 #   Regla gramatical para el token '||'.
 #   
-#   - Valida si sigue un operador de comparación 'or'.
-#   - Inserta el operador en la pila de operadores.
+#   - EA2: Inserta el operador en la pila de operadores.
 #--------------------------------------------------------------------#
 def p_o(p):
     'o : O'
@@ -1537,9 +1513,9 @@ def p_expresion_b2(p):
 # p_revisaY()
 #   Regla gramatical para revisión de la pila de operadores.
 #   
-#   - Valida si hay un '&&' en la pila de operadores.
-#   - Genera cuádruplo de de comparación lógica.
-#   - Añade el temporal resultado en la pila de operandos.
+#   - EB1: Valida si hay un '&&' en la pila de operadores, genera
+#          cuádruplo de de comparación lógica y añade el temporal
+#          resultado en la pila de operandos.
 #--------------------------------------------------------------------#
 def p_revisaY(p):
     'revisaY : fin'
@@ -1565,8 +1541,7 @@ def p_revisaY(p):
 # p_y()
 #   Regla gramatical para el token '&&'.
 #   
-#   - Valida si sigue un operador de comparación 'and'.
-#   - Inserta el operador en la pila de operadores.
+#   - EB2: Inserta el operador en la pila de operadores.
 #--------------------------------------------------------------------#
 def p_y(p):
     'y : Y'
@@ -1583,9 +1558,9 @@ def p_expresion_c1(p):
 # p_revisaMaMeIgDif()
 #   Regla gramatical para revisión de la pila de operadores.
 #   
-#   - Valida si hay un '>', '<', '==' o '!=' en la pila de operadores.
-#   - Genera cuádruplo de de comparación aritmética.
-#   - Añade el temporal resultado en la pila de operandos.
+#   - EC1: Valida si hay un comparador en la pila de operadores, genera
+#          cuádruplo de de comparación aritmética y añade el temporal
+#          resultado en la pila de operandos.
 #--------------------------------------------------------------------#
 def p_revisaMaMeIgDif(p):
     'revisaMaMeIgDif : fin'
@@ -1611,8 +1586,8 @@ def p_revisaMaMeIgDif(p):
 # p_compara()
 #   Regla gramatical para los tokens de '>', '<', '==' o '!='.
 #   
-#   - Valida si sigue un operador de comparación aritmética.
-#   - Inserta el operador en la pila de operadores.
+#   - EC2: Valida si sigue un operador de comparación aritmética e
+#          inserta el operador en la pila de operadores.
 #--------------------------------------------------------------------#
 def p_compara(p):
     '''
@@ -1637,9 +1612,9 @@ def p_expresion_d2(p):
 # p_revisaMasMen()
 #   Regla gramatical para revisión de la pila de operadores.
 #   
-#   - Valida si hay un '+' o '-' en la pila de operadores.
-#   - Genera cuádruplo de suma o resta.
-#   - Añade el temporal resultado en la pila de operandos.
+#   - ED1: Valida si hay un '+' o '-' en la pila de operadores, genera
+#          cuádruplo de suma o resta y añade el temporal resultado en
+#          la pila de operandos.
 #--------------------------------------------------------------------#
 def p_revisaMasMen(p):
     'revisaMasMen : fin'
@@ -1665,8 +1640,8 @@ def p_revisaMasMen(p):
 # p_masmenos()
 #   Regla gramatical para los tokens de '+' o '-'.
 #   
-#   - Valida si sigue un operador de suma o resta.
-#   - Inserta el operador en la pila de operadores.
+#   - ED2: Valida si sigue un operador de suma o resta e inserta el
+#          operador en la pila de operadores.
 #--------------------------------------------------------------------#
 def p_masmenos(p):
     '''masmenos : MAS
@@ -1689,9 +1664,9 @@ def p_expresion_e2(p):
 # p_revisaPorDiv()
 #   Regla gramatical para revisión de la pila de operadores.
 #   
-#   - Valida si hay un '*' o '/' en la pila de operadores.
-#   - Genera cuádruplo de multiplicación o división.
-#   - Añade el temporal resultado en la pila de operandos.
+#   - EE1: Valida si hay un '*' o '/' en la pila de operadores,
+#          genera cuádruplo de multiplicación o división y añade el
+#          temporal resultado en la pila de operandos.
 #--------------------------------------------------------------------#
 def p_revisaPorDiv(p):
     'revisaPorDiv : fin'
@@ -1717,8 +1692,8 @@ def p_revisaPorDiv(p):
 # p_pordiv()
 #   Regla gramatical para los tokens de '*' o '/'.
 #   
-#   - Valida si sigue un operador de multiplicación o división.
-#   - Inserta el operador en la pila de operadores.
+#   - EE2: Valida si sigue un operador de multiplicación o división e
+#          inserta el operador en la pila de operadores.
 #--------------------------------------------------------------------#
 def p_pordiv(p):
     '''pordiv   : POR
@@ -1743,7 +1718,7 @@ def p_expresion_f1(p):
 # p_pareIzqEx()
 #   Regla gramatical para detectar un paréntesis izq de una expresión.
 #   
-#   - Inserta un fondo falso en el stack de operadores.
+#   - EF1: Inserta un fondo falso en el stack de operadores.
 #--------------------------------------------------------------------#
 def p_pareIzqEx(p):
     'pareIzqEx : PAREIZQ'    
@@ -1753,7 +1728,7 @@ def p_pareIzqEx(p):
 # p_pareDerEx()
 #   Regla gramatical para detectar un paréntesis izq de una expresión.
 #   
-#   - Retira el fondo falso del stack de operadores.
+#   - EF2: Retira el fondo falso del stack de operadores.
 #--------------------------------------------------------------------#
 def p_pareDerEx(p):
     'pareDerEx : PAREDER'
@@ -1763,7 +1738,7 @@ def p_pareDerEx(p):
 # p_c_ent()
 #   Regla gramatical para detectar una constante entera.
 #   
-#   - Inserta una constante 'ent' al stack de operandos.
+#   - EF3: Inserta una constante 'ent' al stack de operandos.
 #--------------------------------------------------------------------#
 def p_c_ent(p):
     'c_ent : C_ENT'
@@ -1773,7 +1748,7 @@ def p_c_ent(p):
 # p_c_flot()
 #   Regla gramatical para detectar una constante flotante.
 #   
-#   - Inserta una constante 'flot' al stack de operandos.
+#   - EF4: Inserta una constante 'flot' al stack de operandos.
 #--------------------------------------------------------------------#
 def p_c_flot(p):
     'c_flot : C_FLOT'
@@ -1783,7 +1758,7 @@ def p_c_flot(p):
 # p_c_car()
 #   Regla gramatical para detectar una constante entera.
 #   
-#   - Inserta una constante 'car' al stack de operandos.
+#   - EF5: Inserta una constante 'car' al stack de operandos.
 #--------------------------------------------------------------------#
 def p_c_car(p):
     'c_car : C_CAR'
@@ -1793,7 +1768,7 @@ def p_c_car(p):
 # p_cadena()
 #   Regla gramatical para detectar una constante entera.
 #   
-#   - Inserta una constante 'cadena' al stack de operandos.
+#   - EF6: Inserta una constante 'cadena' al stack de operandos.
 #--------------------------------------------------------------------#
 def p_cadena(p):
     'cadena : CADENA'
@@ -1924,7 +1899,7 @@ def excedimosLocales(tipo, indice):
         llamaError.excesoLocales(tipo)
 
 #--------------------------------------------------------------------#
-# excedimosLocales()
+# excedimosTemporales()
 #   Función validar que los indices TEMPORALES no excedan los límites.
 # Parámetros:
 #   tipo: String con el tipo de variable que puede estar en exceso

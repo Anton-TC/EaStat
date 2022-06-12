@@ -20,7 +20,7 @@ from estructuras_de_ejecucion.segmento import Segmento
 from estructuras_de_ejecucion.controladorMemoria import controladorDeMem
 
 # Esconder el traceback 
-#sys.tracebacklimit = 1
+sys.tracebacklimit = 1
 
 # Inicializar el controlador de errores
 levantaError = ControladorErrores()

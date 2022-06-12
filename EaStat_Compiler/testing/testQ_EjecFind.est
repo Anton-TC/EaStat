@@ -5,12 +5,12 @@ ent j;
 ent k;
 
 principal{
-    ArrA[0] = 1;
-    ArrA[1] = 2;
-    ArrA[2] = 3;
-    ArrA[3] = 4;
-    ArrA[4] = 5;
-    ArrA[5] = 6;
+    i = 0;
+    mientras(i < 6){
+        ArrA[i] = i + 1;
+
+        i = i + 1;
+    };
 
     escrib("Ingresa el numero a buscar del 1 al 6:");
     leer(j);
@@ -20,7 +20,7 @@ principal{
     mientras(i < 6){
         k = ArrA[i];
 
-        escrib("Bucsando en i =");
+        escrib("Buscando en i =");
         escrib(i);
 
         si(j == k){

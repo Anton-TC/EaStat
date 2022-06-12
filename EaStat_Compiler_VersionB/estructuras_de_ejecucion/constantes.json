@@ -1,19 +1,11 @@
 {
-	"Inserta 6 valores numéricos desordenados:": {"valor": "Inserta 6 valores num\u00e9ricos desordenados:", "dir": 43000, "tipo": "cadena"},
-	"Valor 1:": {"valor": "Valor 1:", "dir": 43001, "tipo": "cadena"},
 	"0": {"valor": 0, "dir": 34000, "tipo": "ent"},
-	"5": {"valor": 5, "dir": 34001, "tipo": "ent"},
-	"1": {"valor": 1, "dir": 34002, "tipo": "ent"},
-	"1000": {"valor": 1000, "dir": 34003, "tipo": "ent"},
-	"Valor 2:": {"valor": "Valor 2:", "dir": 43002, "tipo": "cadena"},
-	"Valor 3:": {"valor": "Valor 3:", "dir": 43003, "tipo": "cadena"},
-	"2": {"valor": 2, "dir": 34004, "tipo": "ent"},
-	"Valor 4:": {"valor": "Valor 4:", "dir": 43004, "tipo": "cadena"},
-	"3": {"valor": 3, "dir": 34005, "tipo": "ent"},
-	"Valor 5:": {"valor": "Valor 5:", "dir": 43005, "tipo": "cadena"},
-	"4": {"valor": 4, "dir": 34006, "tipo": "ent"},
-	"Valor 6:": {"valor": "Valor 6:", "dir": 43006, "tipo": "cadena"},
-	"6": {"valor": 6, "dir": 34007, "tipo": "ent"},
-	" ": {"valor": " ", "dir": 43007, "tipo": "cadena"},
-	"Resultado:": {"valor": "Resultado:", "dir": 43008, "tipo": "cadena"}
+	"6": {"valor": 6, "dir": 34001, "tipo": "ent"},
+	"5": {"valor": 5, "dir": 34002, "tipo": "ent"},
+	"1": {"valor": 1, "dir": 34003, "tipo": "ent"},
+	"1000": {"valor": 1000, "dir": 34004, "tipo": "ent"},
+	"Ingresa el numero a buscar del 1 al 6:": {"valor": "Ingresa el numero a buscar del 1 al 6:", "dir": 43000, "tipo": "cadena"},
+	"Buscando en i =": {"valor": "Buscando en i =", "dir": 43001, "tipo": "cadena"},
+	"Lo encontre en i =": {"valor": "Lo encontre en i =", "dir": 43002, "tipo": "cadena"},
+	"Número no encontrado en i =": {"valor": "N\u00famero no encontrado en i =", "dir": 43003, "tipo": "cadena"}
 }
